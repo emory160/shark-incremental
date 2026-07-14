@@ -467,7 +467,7 @@ function updateTabs() {
     var tab_unlocked = {}
 
     for (let [i,v] of Object.entries(TABS)) {
-        let unl = !v.unl || v.unl(), elem, selected = parseInt(i) == tab, array = Array.isArray(v.stab)
+        let unl = !v.unl || v.unl(), selected = parseInt(i) == tab, array = Array.isArray(v.stab)
         tab_unlocked[i] = []
 
         if (array) {
@@ -475,22 +475,16 @@ function updateTabs() {
                 tab_unlocked[i] = v.stab.filter(x => (!x[1] || x[1]()) && getTabNotification(x[0])).map(x => x[0])
             }
 
-            elem = el('stab'+i+'-div')
-
-            elem.style.display = el_display(selected)
+            setDisplay('stab'+i+'-div', selected)
 
             if (selected) v.stab.forEach(([x,u],j) => {
-                var s_elem = el('stab'+i+'-'+j+'-button')
-
-                s_elem.style.display = el_display(!u || u())
-                s_elem.className = el_classes({"tab-button": true, stab: true, selected: x == tab_name, notify: tab_unlocked[i].includes(x)}) // "tab-button stab"+(x == tab_name ? " selected" : "")
+                setDisplay('stab'+i+'-'+j+'-button', !u || u())
+                setClass('stab'+i+'-'+j+'-button', el_classes({"tab-button": true, stab: true, selected: x == tab_name, notify: tab_unlocked[i].includes(x)}))
             })
         }
 
-        elem = el('tab'+i+'-button')
-
-        elem.style.display = el_display(unl)
-        if (unl) elem.className = el_classes({"tab-button": true, selected, notify: player.radios.notify && (array ? tab_unlocked[i].length > 0 : getTabNotification(v.stab))}) // "tab-button"+(selected ? " selected" : "")
+        setDisplay('tab'+i+'-button', unl)
+        if (unl) setClass('tab'+i+'-button', el_classes({"tab-button": true, selected, notify: player.radios.notify && (array ? tab_unlocked[i].length > 0 : getTabNotification(v.stab))}))
     }
 
     for (let [i,v] of Object.entries(TAB_IDS)) {
@@ -498,7 +492,7 @@ function updateTabs() {
 
         if (!elem) continue;
 
-        elem.style.display = el_display(unl)
+        setDisplay(i+"-tab", unl)
 
         if (unl) v.html?.()
     }
@@ -512,12 +506,12 @@ function updateTabs() {
     let s = TABS[tab]?.style ?? {}
     for (let [k,v] of Object.entries(DEFAULT_TAB_STYLE)) document.body.style[k] = s[k] ?? v
 
-    el('worth-shark').style.display = el_display(!player.omni.active && player.feature >= 27 && tab_name == 'shark-upgs')
+    setDisplay('worth-shark', !player.omni.active && player.feature >= 27 && tab_name == 'shark-upgs')
     if (!player.omni.active && tab_name == 'shark-upgs') {
         document.body.style.background = `hsl(177, 70%, ${41 * Math.max(0,1 - Math.max(0,window.scrollY/5000 - 1))}%)`
         document.body.style.color = `hsl(0,0%,${100*Math.min(1,Math.max(0,window.scrollY/5000 - 1))}%)`
 
-        el('worth-shark-button').innerHTML = lang_text('shark-worth',player.hadron.dna.gte(1e100))
+        setHTML('worth-shark-button', lang_text('shark-worth',player.hadron.dna.gte(1e100)))
     }
 }
 

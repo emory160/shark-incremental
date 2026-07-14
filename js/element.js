@@ -1,6 +1,38 @@
 function el_display(bool) { return bool ? "" : "none" }
 function el_classes(data) { return Object.keys(data).filter(x => data[x]).join(" ") }
 
+// Per-tick DOM writes (innerHTML/textContent/style/className) are what actually costs CPU via
+// reflow, not the surrounding JS. These caches let hot render paths skip the write entirely
+// when the value they'd set is identical to last time.
+const RENDER_CACHE = { text: new Map(), html: new Map(), display: new Map(), cls: new Map(), style: new Map() }
+
+function setText(id, value) {
+    if (RENDER_CACHE.text.get(id) === value) return
+    RENDER_CACHE.text.set(id, value)
+    el(id).textContent = value
+}
+function setHTML(id, value) {
+    if (RENDER_CACHE.html.get(id) === value) return
+    RENDER_CACHE.html.set(id, value)
+    el(id).innerHTML = value
+}
+function setDisplay(id, visible) {
+    if (RENDER_CACHE.display.get(id) === visible) return
+    RENDER_CACHE.display.set(id, visible)
+    el(id).style.display = el_display(visible)
+}
+function setClass(id, value) {
+    if (RENDER_CACHE.cls.get(id) === value) return
+    RENDER_CACHE.cls.set(id, value)
+    el(id).className = value
+}
+function setStyle(id, prop, value) {
+    let key = id + '.' + prop
+    if (RENDER_CACHE.style.get(key) === value) return
+    RENDER_CACHE.style.set(key, value)
+    el(id).style[prop] = value
+}
+
 function updateHTML() {
     updateTabs()
 
@@ -8,42 +40,46 @@ function updateHTML() {
 
     var f, ff = []
 
-    el('fish-div').style.display = el_display(!player.omni.active)
-    el('game-speed-div').style.display = el('antimatter-div').style.display = el('antimatter-god-div').style.display = el_display(!player.omni.god && player.omni.active)
-    el('antimatter-equivalent-div').style.display = el_display(player.omni.active)
-    el('god-fish-div').style.display = el_display(player.omni.god)
+    setDisplay('fish-div', !player.omni.active)
+    let speedDisplay = !player.omni.god && player.omni.active
+    setDisplay('game-speed-div', speedDisplay)
+    setDisplay('antimatter-div', speedDisplay)
+    setDisplay('antimatter-god-div', speedDisplay)
+    setDisplay('antimatter-equivalent-div', player.omni.active)
+    setDisplay('god-fish-div', player.omni.god)
 
     if (player.omni.god) {
         f = CURRENCIES['omni-fish'].amount
 
-        el('god-fish-amount').textContent = f.format(0)
-        el('god-fish-gain').textContent = tmp.currency_gain['omni-fish'].gt(0) ? f.formatGain(tmp.currency_gain['omni-fish']) : ""
-        el('antimatter-equivalent').innerHTML = OMNI.god_equivalents[player.omni.overmodification] ?? "Ω"
+        setText('god-fish-amount', f.format(0))
+        setText('god-fish-gain', tmp.currency_gain['omni-fish'].gt(0) ? f.formatGain(tmp.currency_gain['omni-fish']) : "")
+        setHTML('antimatter-equivalent', OMNI.god_equivalents[player.omni.overmodification] ?? "Ω")
     } else if (player.omni.active) {
         f = CURRENCIES['anti-fish'].amount, ff = []
 
         if (f.gte(tmp.omni.op_start)) ff.push(icon("warn"));
 
-        el('antimatter-amount').innerHTML = f.format(0) + (ff.length > 0 ? " " + ff.join("") : "")
-        el('antimatter-gain').textContent = tmp.currency_gain['anti-fish'].gt(0) ? f.formatGain(tmp.currency_gain['anti-fish'].mul(tmp.speed)) : ""
+        setHTML('antimatter-amount', f.format(0) + (ff.length > 0 ? " " + ff.join("") : ""))
+        setText('antimatter-gain', tmp.currency_gain['anti-fish'].gt(0) ? f.formatGain(tmp.currency_gain['anti-fish'].mul(tmp.speed)) : "")
 
-        el('antimatter-equivalent').innerHTML = OMNI.equivalents[player.omni.tier] ?? "∞"
+        setHTML('antimatter-equivalent', OMNI.equivalents[player.omni.tier] ?? "∞")
 
-        el('omni-tier').textContent = player.omni.tier.format(0)
+        setText('omni-tier', player.omni.tier.format(0))
 
-        el('game-speed').textContent = formatMult(tmp.speed)
+        setText('game-speed', formatMult(tmp.speed))
 
-        el('antimatter-god-div').style.display = el_display(f.gte(tmp.omni.op_start))
-        if (f.gte(tmp.omni.op_start)) el('antimatter-god-penalty').textContent = format(tmp.omni.op_penalty,3);
+        let op = f.gte(tmp.omni.op_start)
+        setDisplay('antimatter-god-div', op)
+        if (op) setText('antimatter-god-penalty', format(tmp.omni.op_penalty,3));
     } else {
         f = CURRENCIES.fish.amount, ff = []
-        
+
         if (f.gte(tmp.fish_cap)) ff.push(icon("benzene"));
         if (f.gte(tmp.shark_op_start)) ff.push(icon("biohazard"));
         if (tmp.cr_active) ff.push(icon("radioactive"));
 
-        el('fish-amount').innerHTML = f.format(0) + (ff.length > 0 ? " " + ff.join("") : "")
-        el('fish-gain').textContent = tmp.currency_gain.fish.gt(0) ? CURRENCIES.fish.amount.formatGain(tmp.currency_gain.fish) : ""
+        setHTML('fish-amount', f.format(0) + (ff.length > 0 ? " " + ff.join("") : ""))
+        setText('fish-gain', tmp.currency_gain.fish.gt(0) ? CURRENCIES.fish.amount.formatGain(tmp.currency_gain.fish) : "")
     }
 
     updateTopCurrenciesHTML()
@@ -119,16 +155,16 @@ function updateTopCurrenciesHTML() {
         i = parseInt(i)
 
         var unl = !x.unl || x.unl()
-        el(`curr-top-${i}-div`).style.display = el_display(unl)
+        setDisplay(`curr-top-${i}-div`, unl)
 
         if (!unl) continue
 
         var c = CURRENCIES[x.curr]
-        el(`curr-top-${i}-amt2`).textContent = c.amount.format(0) + ((c.passive??1)>0?" "+c.amount.formatGain(tmp.currency_gain[x.curr].mul(c.passive)):"")
+        setText(`curr-top-${i}-amt2`, c.amount.format(0) + ((c.passive??1)>0?" "+c.amount.formatGain(tmp.currency_gain[x.curr].mul(c.passive)):""))
 
         let req = !x.req || x.req()
-        el(`curr-top-${i}-btn`).innerHTML = req ? lang_text('curr-top-'+i+'-reset',tmp.currency_gain[x.curr],...c.moreArg??[]) : lang_text('curr-top-'+i+'-req',c.require)
-        el(`curr-top-${i}-btn`).className = el_classes({locked: !req, omni: i > 6})
+        setHTML(`curr-top-${i}-btn`, req ? lang_text('curr-top-'+i+'-reset',tmp.currency_gain[x.curr],...c.moreArg??[]) : lang_text('curr-top-'+i+'-req',c.require))
+        setClass(`curr-top-${i}-btn`, el_classes({locked: !req, omni: i > 6}))
     }
 }
 
@@ -136,8 +172,8 @@ function updateProgressHTML() {
     let f = player.feature
     let p = PROGRESS[f]
 
-    el('fp-bar').className = tmp.ss_difficulty ? "observ" : ""
-    
+    setClass('fp-bar', tmp.ss_difficulty ? "observ" : "")
+
     if (p || tmp.ss_difficulty) {
         let l = 0, m = Decimal.pow(10,l-1), amount, req, auto = false, cond_text = "???", progress_text = "???";
 
@@ -148,17 +184,17 @@ function updateProgressHTML() {
         } else {
             amount = p.amount, req = p.require, auto = p.auto, l = p.logHeight??0, cond_text = lang_text('progress-'+f+'-cond-text'), progress_text = lang_text('progress-'+f+'-text',req);
         }
-        
+
         let percent = ( l > 0 ? amount.max(m).iteratedlog(10,l).div(Decimal.max(req,m).iteratedlog(10,l)) : amount.div(req) ).max(0).min(1).toNumber()
         if (isNaN(percent)) percent = 0;
         let cond = !auto && amount.gte(req)
 
-        el('fp-text').innerHTML = cond && (tmp.ss_difficulty || p.cond_text) ? cond_text : progress_text + " ("+formatPercent(percent,3)+")"
-        el('fp-bar').style.width = percent*100+"%"
-        el('fp-bar').style.animation = cond ? "cond-bar 1s infinite" : "none"
+        setHTML('fp-text', cond && (tmp.ss_difficulty || p.cond_text) ? cond_text : progress_text + " ("+formatPercent(percent,3)+")")
+        setStyle('fp-bar', 'width', percent*100+"%")
+        setStyle('fp-bar', 'animation', cond ? "cond-bar 1s infinite" : "none")
     } else {
-        el('fp-text').innerHTML = lang_text('maxed-progress')
-        el('fp-bar').style.width = "100%"
-        el('fp-bar').style.animation = "none"
+        setHTML('fp-text', lang_text('maxed-progress'))
+        setStyle('fp-bar', 'width', "100%")
+        setStyle('fp-bar', 'animation', "none")
     }
 }

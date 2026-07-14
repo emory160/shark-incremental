@@ -621,28 +621,28 @@ function updateSharkUpgradesHTML() {
 
     for (let [i,v] of Object.entries(SHARK_UPGRADES)) {
         let unl = t && t.includes(i) && (!v.unl || v.unl())
-        el('shark-upgrade'+i+'-div').style.display = el_display(unl)
+        setDisplay('shark-upgrade'+i+'-div', unl)
 
         if (!unl) continue;
-    
+
         let amt = player.shark_upg[i]
         let req = true
         if (v.req) {
             req = amt.gt(0) || v.req()
-            el('su-'+i+'-req-div').style.display = el_display(!req)
-            el('su-'+i+'-info').style.display = el_display(req)
+            setDisplay('su-'+i+'-req-div', !req)
+            setDisplay('su-'+i+'-info', req)
         }
 
         if (!req) continue;
 
         let cost = v.cost(amt)
 
-        el('su-'+i+'-level').textContent = amt.format(0)
+        setText('su-'+i+'-level', amt.format(0))
 
-        el('su-'+i+'-cost').innerHTML = tmp.su_locked[v.curr] ? `Locked` : `${cost_text}: ${cost.format(0)} ${CURRENCIES[v.curr].costName}`
-        el('su-'+i+'-cost').className = el_classes({'shark-upgrade-button': true, locked: tmp.su_locked[v.curr] || CURRENCIES[v.curr].amount.lt(cost)})
+        setHTML('su-'+i+'-cost', tmp.su_locked[v.curr] ? `Locked` : `${cost_text}: ${cost.format(0)} ${CURRENCIES[v.curr].costName}`)
+        setClass('su-'+i+'-cost', el_classes({'shark-upgrade-button': true, locked: tmp.su_locked[v.curr] || CURRENCIES[v.curr].amount.lt(cost)}))
 
-        el('su-'+i+'-desc').innerHTML = lang_text('su-'+i+'-desc')+"<br>"+effect_text+": <b>"+v.effDesc(tmp.shark_upg_eff[i])+"</b>"
+        setHTML('su-'+i+'-desc', lang_text('su-'+i+'-desc')+"<br>"+effect_text+": <b>"+v.effDesc(tmp.shark_upg_eff[i])+"</b>")
     }
 }
 
