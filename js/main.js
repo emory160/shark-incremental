@@ -7,6 +7,12 @@ function compareStyle(text,x,y) { return Decimal.eq(x,y)?toTextStyle(text):Decim
 
 var player = {}, date = Date.now(), diff = 0;
 
+// DOM repaints are the expensive part of the tick (innerHTML writes + reflow), so they run
+// at a fraction of the simulation rate. calc()/updateTemp() still run every tick at FPS so
+// game timing and progression are unaffected.
+const RENDER_FPS = 10;
+var renderTick = 0;
+
 function loop() {
     if (offline.active) return
 
@@ -16,13 +22,19 @@ function loop() {
     }
 
     diff = Date.now()-date;
-    
+
     if (!tmp.omni.pause && !player.end) {
         updateOptions()
-        updateHTML()
+
+        renderTick += RENDER_FPS
+        if (renderTick >= FPS && !document.hidden) {
+            renderTick %= FPS
+            updateHTML()
+        }
+
         calc(diff/1000)
     }
-    
+
     date = Date.now()
 }
 
