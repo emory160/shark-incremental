@@ -11,7 +11,7 @@ LANGUAGES.RU = {
         'fish-costName': toTextStyle('Рыб','fish'),
 
         'prestige-name': "Осколок Престижа",
-        'prestige-costName': "Осколков " + toTextStyle('Престижа','prestige'),
+        'prestige-costName': toTextStyle('Осколков Престижа','prestige'),
 
         'coral-name': "Коралл",
         'coral-costName': toTextStyle('Коралла','coral'),
@@ -29,10 +29,10 @@ LANGUAGES.RU = {
         'kelp-costName': toTextStyle('Ламинария','kelp'),
 
         'core-name': "Магматические Фрагменты",
-        'core-costName': toTextStyle('Магматических','core') + ' Фрагментов',
+        'core-costName': toTextStyle('Магматических Фрагментов','core'),
 
         'humanoid-name': "Человекопободные Акулы",
-        'humanoid-costName': toTextStyle('Человекоподобные','humanoid') + ' Акулы',
+        'humanoid-costName': toTextStyle('Человекоподобные Акулы','humanoid'),
 
         'remnants-name': "Остатки",
         'remnants-costName': toTextStyle('Остатки','black-hole'),
@@ -104,7 +104,7 @@ LANGUAGES.RU = {
 
         // Elements (Элементы)
 
-        'fish-div': `Ваша ${toTextStyle('Акула','shark')} съела <h2>${toTextStyle('0','fish','fish-amount')}</h2> <span id="fish-gain"></span> рыб.`,
+        'fish-div': `${toTextStyle('Ваша Акула съела','shark')} <h2>${toTextStyle('0','fish','fish-amount')}</h2> <span id="fish-gain"></span> рыб.`,
         'shark-stats': `Статистика ${toTextStyle('Акулы','shark')}<br>Уровень: <h4 id="shark-level">???</h4><br>Ранг: <h4 id="shark-tier">???</h4>`,
 
         'shark-elo-div': `ELO твоей ${toTextStyle('Акулы','shark')}  равно <h3>${toTextStyle('0','humanoid','shark-elo')}</h3>.`,

@@ -12,7 +12,7 @@ LANGUAGES.VN = {
         'fish-costName': toTextStyle('Cá','fish'),
 
         'prestige-name': "Mãnh Prestige",
-        'prestige-costName': "Mãnh " + toTextStyle('Prestige','prestige'),
+        'prestige-costName': toTextStyle('Mãnh Prestige','prestige'),
 
         'coral-name': "San Hô",
         'coral-costName': toTextStyle('San Hô','coral'),
@@ -30,10 +30,10 @@ LANGUAGES.VN = {
         'kelp-costName': toTextStyle('Tảo','kelp'),
 
         'core-name': "Miếng Mắc Ma",
-        'core-costName': 'Miếng ' + toTextStyle('Mắc Ma','core'),
+        'core-costName': toTextStyle('Miếng Mắc Ma','core'),
 
         'humanoid-name': "Cá Mập Người",
-        'humanoid-costName': 'Cá Mập ' + toTextStyle('Người','humanoid'),
+        'humanoid-costName': toTextStyle('Cá Mập Người','humanoid'),
 
         'full-shark-level': 'Level '+toTextStyle('Cá Mập','shark'),
 
@@ -70,7 +70,7 @@ LANGUAGES.VN = {
 
         // Elements
 
-        'fish-div': `${toTextStyle('Cá Mập','shark')} của bạn đã ăn <h2>${toTextStyle('0','fish','fish-amount')}</h2> <span id="fish-gain"></span> con cá.`,
+        'fish-div': `${toTextStyle('Cá Mập của bạn đã ăn','shark')} <h2>${toTextStyle('0','fish','fish-amount')}</h2> <span id="fish-gain"></span> con cá.`,
         'shark-stats': `Thông số của ${toTextStyle('Cá Mập','shark')}<br>Level: <h4 id="shark-level">???</h4><br>Rank: <h4 id="shark-tier">???</h4>`,
 
         'shark-elo-div': `ELO ${toTextStyle('Cá Mập','shark')} của bạn là <h3>${toTextStyle('0','humanoid','shark-elo')}</h3>.`,

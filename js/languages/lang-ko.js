@@ -12,7 +12,7 @@ LANGUAGES.KO = {
         'fish-costName': toTextStyle('물고기','fish'),
 
         'prestige-name': "환생 파편",
-        'prestige-costName': toTextStyle('환생','prestige') + " 파편",
+        'prestige-costName': toTextStyle('환생 파편','prestige'),
 
         'coral-name': "산호",
         'coral-costName': toTextStyle('산호','coral'),
@@ -30,10 +30,10 @@ LANGUAGES.KO = {
         'kelp-costName': toTextStyle('켈프','kelp'),
 
         'core-name': "마그마 조각",
-        'core-costName': toTextStyle('마그마','core') + ' 조각',
+        'core-costName': toTextStyle('마그마 조각','core'),
 
         'humanoid-name': "휴머노이드 상어",
-        'humanoid-costName': toTextStyle('휴머노이드','humanoid') + ' 상어',
+        'humanoid-costName': toTextStyle('휴머노이드 상어','humanoid'),
 
         'remnants-name': "잔재물",
         'remnants-costName': toTextStyle('잔재물','black-hole'),
@@ -118,7 +118,7 @@ LANGUAGES.KO = {
 
         // Elements / 기초적인 것들
 
-        'fish-div': `당신의 ${toTextStyle('상어','shark')}가 <h2>${toTextStyle('0','fish','fish-amount')}</h2> <span id="fish-gain"></span> 마리의 물고기를 먹었습니다.`,
+        'fish-div': `${toTextStyle('당신의 상어가','shark')} <h2>${toTextStyle('0','fish','fish-amount')}</h2> <span id="fish-gain"></span> 마리의 물고기를 먹었습니다.`,
         'shark-stats': `${toTextStyle('상어','shark')} 상태<br>레벨: <h4 id="shark-level">???</h4><br>랭크: <h4 id="shark-tier">???</h4> <span id="shark-next-rank"></span>`,
 
         'shark-elo-div': `당신의 ${toTextStyle('상어','shark')} ELO는 <h3>${toTextStyle('0','humanoid','shark-elo')}</h3>입니다.`,

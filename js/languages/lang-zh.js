@@ -12,7 +12,7 @@ LANGUAGES.ZH = {
         'fish-costName': toTextStyle('鱼','fish'),
 
         'prestige-name': "重生碎片",
-        'prestige-costName': toTextStyle('重生','prestige') + "碎片",
+        'prestige-costName': toTextStyle('重生碎片','prestige'),
 
         'coral-name': "珊瑚",
         'coral-costName': toTextStyle('珊瑚','coral'),
@@ -30,10 +30,10 @@ LANGUAGES.ZH = {
         'kelp-costName': toTextStyle('褐藻','kelp'),
 
         'core-name': "岩浆碎片",
-        'core-costName': toTextStyle('岩浆','core') + '碎片',
+        'core-costName': toTextStyle('岩浆碎片','core'),
 
         'humanoid-name': "类人鲨鱼",
-        'humanoid-costName': toTextStyle('类人','humanoid') + '鲨鱼',
+        'humanoid-costName': toTextStyle('类人鲨鱼','humanoid'),
 
 		'remnants-name': "遗物",
         'remnants-costName': toTextStyle('遗物','black-hole'),
@@ -121,7 +121,7 @@ LANGUAGES.ZH = {
 
         // Elements
 
-        'fish-div': `你的${toTextStyle('鲨鱼','shark')}已经吃了 <h2>${toTextStyle('0','fish','fish-amount')}</h2> <span id="fish-gain"></span> 条鱼`,
+        'fish-div': `${toTextStyle('你的鲨鱼已经吃了','shark')} <h2>${toTextStyle('0','fish','fish-amount')}</h2> <span id="fish-gain"></span> 条鱼`,
         'shark-stats': `${toTextStyle('鲨鱼','shark')}状态<br>等级：<h4 id="shark-level">???</h4><br>段位：<h4 id="shark-tier">???</h4> <span id="shark-next-rank"></span>`,
 
         'shark-elo-div': `${toTextStyle('鲨鱼','shark')}的战力为 <h3>${toTextStyle('0','humanoid','shark-elo')}</h3>.`,
@@ -1076,7 +1076,7 @@ LANGUAGES.ZH = {
         'anti-fish-costName': toTextStyle('反物质鱼','antimatter'),
 
         'transcend-name': "超越碎片",
-        'transcend-costName': toTextStyle('超越','transcend') + "碎片",
+        'transcend-costName': toTextStyle('超越碎片','transcend'),
 
         'undead-name': "亡灵精华",
         'undead-costName': toTextStyle('亡灵精华','undead'),
@@ -1085,7 +1085,7 @@ LANGUAGES.ZH = {
         'nucleus-costName': toTextStyle('原子核','atom'),
 
         'rune-fragments-name': "符文碎片",
-        'rune-fragments-costName': toTextStyle('符文','rune') + "碎片",
+        'rune-fragments-costName': toTextStyle('符文碎片','rune'),
 
         'curr-top-7-req': x => `${toTextStyle('反物质鱼','antimatter')}的总量达到 <b>${format(x)}</b>`, 
         'curr-top-7-reset': x => `获得 <b>${x.format(0)}</b> ${toTextStyle('超越','transcend')}碎片`,

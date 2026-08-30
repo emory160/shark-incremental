@@ -12,7 +12,7 @@ LANGUAGES.PL = {
         'fish-costName': toTextStyle('Ryby','Fish'),
 
         'prestige-name': "Odłamki prestiżu",
-        'prestige-costName':"Odłamki " + toTextStyle('Prestiżu','prestige'),
+        'prestige-costName': toTextStyle('Odłamki Prestiżu','prestige'),
 
         'coral-name': "Koral",
         'coral-costName': toTextStyle('Koral','coral'),
@@ -30,10 +30,10 @@ LANGUAGES.PL = {
         'kelp-costName': toTextStyle('Wodorosty','kelp'),
 
         'core-name': "Fragmenty Magmatyczne",
-        'core-costName': toTextStyle('Magmatyczne','core') + ' Fragmenty',
+        'core-costName': toTextStyle('Magmatyczne Fragmenty','core'),
 
         'humanoid-name': "Człekowe Rekiny",
-        'humanoid-costName': toTextStyle('Człekowe','humanoid') + ' Rekiny',
+        'humanoid-costName': toTextStyle('Człekowe Rekiny','humanoid'),
 
         'full-shark-level': 'Poziom ' + toTextStyle('Rekina','shark'),
  
@@ -73,7 +73,7 @@ LANGUAGES.PL = {
 
         // Elements
 
-        'fish-div': `Twój ${toTextStyle('Rekin','shark')} zjadł <h2>${toTextStyle('0','fish','fish-amount')}</h2> <span id="fish-gain"></span> ryb.`,
+        'fish-div': `${toTextStyle('Twój Rekin zjadł','shark')} <h2>${toTextStyle('0','fish','fish-amount')}</h2> <span id="fish-gain"></span> ryb.`,
         'shark-stats': `${toTextStyle('Rekin','shark')} Statystki<br>Poziom: <h4 id="shark-level">???</h4><br>Ranga: <h4 id="shark-tier">???</h4> <span id="shark-next-rank"></span>`,
 
         'shark-elo-div': `Twojego ${toTextStyle('Rekina','shark')} ELO to <h3>${toTextStyle('0','humanoid','shark-elo')}</h3>.`,

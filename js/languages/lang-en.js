@@ -30,10 +30,10 @@ LANGUAGES.EN = {
         'kelp-costName': toTextStyle('Kelp','kelp'),
 
         'core-name': "Magmatic Fragments",
-        'core-costName': toTextStyle('Magmatic','core') + ' Fragments',
+        'core-costName': toTextStyle('Magmatic Fragments','core'),
 
         'humanoid-name': "Humanoid Sharks",
-        'humanoid-costName': toTextStyle('Humanoid','humanoid') + ' Sharks',
+        'humanoid-costName': toTextStyle('Humanoid Sharks','humanoid'),
 
         'remnants-name': "Remnants",
         'remnants-costName': toTextStyle('Remnants','black-hole'),
@@ -121,7 +121,7 @@ LANGUAGES.EN = {
 
         // Elements
 
-        'fish-div': `Your ${toTextStyle('Shark','shark')} has eaten <h2>${toTextStyle('0','fish','fish-amount')}</h2> <span id="fish-gain"></span> fish.`,
+        'fish-div': `${toTextStyle('Your Shark has eaten','shark')} <h2>${toTextStyle('0','fish','fish-amount')}</h2> <span id="fish-gain"></span> fish.`,
         'shark-stats': `${toTextStyle('Shark','shark')} Stats<br>Level: <h4 id="shark-level">???</h4><br>Rank: <h4 id="shark-tier">???</h4> <span id="shark-next-rank"></span>`,
 
         'shark-elo-div': `Your ${toTextStyle('Shark','shark')} ELO is <h3>${toTextStyle('0','humanoid','shark-elo')}</h3>.`,
@@ -1077,7 +1077,7 @@ LANGUAGES.EN = {
         'anti-fish-costName': toTextStyle('Fish Antimatter','antimatter'),
 
         'transcend-name': "Transcendental Shards",
-        'transcend-costName': toTextStyle('Transcendental','transcend') + " Shards",
+        'transcend-costName': toTextStyle('Transcendental Shards','transcend'),
 
         'undead-name': "Undead Essence",
         'undead-costName': toTextStyle('Undead Essence','undead'),
@@ -1086,7 +1086,7 @@ LANGUAGES.EN = {
         'nucleus-costName': toTextStyle('Atomic Nucleus','atom'),
 
         'rune-fragments-name': "Rune Fragments",
-        'rune-fragments-costName': toTextStyle('Rune','rune') + " Fragments",
+        'rune-fragments-costName': toTextStyle('Rune Fragments','rune'),
 
         'curr-top-7-req': x => `Reach <b>${format(x)}</b> total ${toTextStyle('Fish Antimatter','antimatter')}`, 
         'curr-top-7-reset': x => `Transcend for <b>${x.format(0)}</b> ${toTextStyle('Transcendental','transcend')} Shards`,

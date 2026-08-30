@@ -12,7 +12,7 @@ LANGUAGES.JA = {
         'fish-costName': toTextStyle('魚', 'fish'),
 
         'prestige-name': '転生の破片',
-        'prestige-costName': toTextStyle('転生', 'prestige') + 'の破片',
+        'prestige-costName': toTextStyle('転生の破片', 'prestige'),
 
         'coral-name': 'サンゴ',
         'coral-costName': toTextStyle('サンゴ', 'coral'),
@@ -30,10 +30,10 @@ LANGUAGES.JA = {
         'kelp-costName': toTextStyle('昆布', 'kelp'),
 
         'core-name': 'マグマの欠片',
-        'core-costName': toTextStyle('マグマ', 'core') + 'の欠片',
+        'core-costName': toTextStyle('マグマの欠片', 'core'),
 
         'humanoid-name': '人型のサメ',
-        'humanoid-costName': toTextStyle('人型', 'humanoid') + 'のサメ',
+        'humanoid-costName': toTextStyle('人型のサメ', 'humanoid'),
 
         'remnants-name': '残骸',
         'remnants-costName': toTextStyle('残骸', 'black-hole'),
@@ -121,7 +121,7 @@ LANGUAGES.JA = {
 
         // Elements
 
-        'fish-div': `あなたの${toTextStyle('サメ', 'shark')}は<h2>${toTextStyle('0', 'fish', 'fish-amount')}</h2> <span id="fish-gain"></span>匹の魚を食べました`,
+        'fish-div': `${toTextStyle('あなたのサメは', 'shark')}<h2>${toTextStyle('0', 'fish', 'fish-amount')}</h2> <span id="fish-gain"></span>匹の魚を食べました`,
         'shark-stats': `${toTextStyle('サメ', 'shark')}の統計<br>レベル: <h4 id="shark-level">???</h4><br>ランク: <h4 id="shark-tier">???</h4> <span id="shark-next-rank"></span>`,
 
         'shark-elo-div': `あなたの${toTextStyle('サメ', 'shark')}ELOは<h3>${toTextStyle('0', 'humanoid', 'shark-elo')}</h3>。`,
@@ -1077,7 +1077,7 @@ LANGUAGES.JA = {
         'anti-fish-costName': toTextStyle('反物質魚','antimatter'),
 
         'transcend-name': "超越の破片",
-        'transcend-costName': toTextStyle('超越','transcend') + "の破片",
+        'transcend-costName': toTextStyle('超越の破片','transcend'),
 
         'undead-name': "不死のエッセンス",
         'undead-costName': toTextStyle('不死のエッセンス','undead'),
@@ -1086,7 +1086,7 @@ LANGUAGES.JA = {
         'nucleus-costName': toTextStyle('原子核','atom'),
 
         'rune-fragments-name': "ルーンの欠片",
-        'rune-fragments-costName': toTextStyle('ルーン','rune') + "の欠片",
+        'rune-fragments-costName': toTextStyle('ルーンの欠片','rune'),
 
         'curr-top-7-req': x => `合計<b>${format(x)}</b>匹の${toTextStyle('反物質魚','antimatter')}に到達`, 
         'curr-top-7-reset': x => `<b>${x.format(0)}</b>個の${toTextStyle('超越','transcend')}の破片を獲得`,

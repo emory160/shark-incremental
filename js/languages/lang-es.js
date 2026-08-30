@@ -12,7 +12,7 @@ LANGUAGES.ES = {
         'fish-costName': toTextStyle('Peces','fish'),
 
         'prestige-name': "Fragmentos de prestigio",
-        'prestige-costName': "Fragmentos de " + toTextStyle('Prestigio','prestige'),
+        'prestige-costName': toTextStyle('Fragmentos de Prestigio','prestige'),
 
         'coral-name': "Coral",
         'coral-costName': toTextStyle('Coral','coral'),
@@ -30,7 +30,7 @@ LANGUAGES.ES = {
         'kelp-costName': toTextStyle('Algas','kelp'),
 
         'core-name': "Fragmentos Magmáticos",
-        'core-costName': 'Fragmentos ' + toTextStyle('Magmáticos','core'),
+        'core-costName': toTextStyle('Fragmentos Magmáticos','core'),
 
         'full-shark-level': 'Niveles de ' +  toTextStyle('Tiburón','shark'),
 
@@ -56,7 +56,7 @@ LANGUAGES.ES = {
 
         // Elements
 
-        'fish-div': `Tu ${toTextStyle('Tiburón','shark')} ha comido <h2>${toTextStyle('0','fish','fish-amount')}</h2> <span id="fish-gain"></span> peces.`,
+        'fish-div': `${toTextStyle('Tu Tiburón ha comido','shark')} <h2>${toTextStyle('0','fish','fish-amount')}</h2> <span id="fish-gain"></span> peces.`,
         'shark-stats': `Estadísticas del ${toTextStyle('Tiburón','shark')}<br>Nivel: <h4 id="shark-level">???</h4><br>Rango: <h4 id="shark-tier">???</h4>`,
 
         'option-title-1': "Opciones principales",
