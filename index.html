@@ -101,7 +101,7 @@
                     <div>1.23e123,456,789 <text-style text="prestige">Prestige</text-style> Shards</div><button>Reset</button>
                 </div>
             </div>
-            <div id="game-speed-div"></div>
+            <div id="game-speed-div" aria-live="off"></div>
             <div id="fish-div" aria-live="off">Your <text-style text="shark">Shark</text-style> has eaten <h2><text-style text="fish" id="fish-amount">38.14SpDc</text-style></h2> (108.9SxDc/s) fish.</div>
             <div id="antimatter-div" aria-live="off"></div>
             <div id="god-fish-div" aria-live="off"></div>
@@ -113,7 +113,7 @@
 
         <div id="shark-upgs-tab" aria-live="off">
             <div id="shark-div" class="table-center">
-                <div id="shark-stats"></div>
+                <div id="shark-stats" aria-live="off"></div>
                 <button class="locked" id="shark-button" onclick="upgradeShark()"></button>
                 <div id="shark-bonus"></div>
             </div>
@@ -198,19 +198,19 @@
             </div>
             <p id="core-reactor-bonus"></p>
         </div><div id="core-radiation-tab" aria-live="off">
-            <details id="radioactive-summary"></details>
+            <details id="radioactive-summary" aria-live="off"></details>
             <table class="table">
                 <tr>
                     <td style="width: 50%;">
-                        <p id="radioactive-div"></p>
+                        <p id="radioactive-div" aria-live="off"></p>
                         <div class="table-center">
                             <button class="huge-btn" id="start-cr-experiment" onclick="CORE_RAD.experiment()">Start the experiment.</button>
                             <button class="huge-btn" id="upgrade-cr-btn" onclick="CORE_RAD.purchaseGeneration()">Upgrade the radiation generation.</button>
                             <button class="huge-btn" id="reset-cr-btn" onclick="CORE_RAD.purchaseBoost()" style="font-size: 12px;">Reset the radiation, but increase its limit by <b>???</b>, and sometimes add a new boost or upgrade the boosts.</button>
                         </div>
-                        <p id="core-temp-div"></p>
+                        <p id="core-temp-div" aria-live="off"></p>
                     </td><td style="width: 50%;">
-                        <p id="radioboost-div"></p>
+                        <p id="radioboost-div" aria-live="off"></p>
                         <div id="cr-boosts-div"></div>
                     </td>
                 </tr>
@@ -226,7 +226,7 @@
                         <div id="core-assembler-grid"></div>
                         <div id="core-assembler-choose-div" class="table-center"></div>
                     </td><td style="width: 50%;">
-                        <p id="core-temp-after-div"></p>
+                        <p id="core-temp-after-div" aria-live="off"></p>
                         <div id="core-assembler-buildings" class="table-center"></div>
                     </td>
                 </tr>
@@ -235,13 +235,13 @@
             <table class="table">
                 <tr>
                     <td style="width: 50%;">
-                        <div id="shark-elo-div"></div>
+                        <div id="shark-elo-div" aria-live="off"></div>
                         <div id="shark-elo-calc"></div>
                         <p id="shark-overpopulation"></p>
                     </td><td style="width: 50%;">
                         <div id="shark-rank-div" aria-live="off"></div>
-                        <subtitle id="shark-rank-note"></subtitle>
-                        <div id="shark-rank-req-div"></div>
+                        <subtitle id="shark-rank-note" aria-live="off"></subtitle>
+                        <div id="shark-rank-req-div" aria-live="off"></div>
                         <div id="shark-rank-bonus"></div>
                     </td>
                 </tr>
@@ -259,7 +259,7 @@
                         </div>
                         <div id="evolution-tree"></div>
                     </td><td style="width: 50%;">
-                        <p id="sharkoid-faith-div"></p>
+                        <p id="sharkoid-faith-div" aria-live="off"></p>
                         <div id="sharkoid-faith-btns"></div>
                     </td>
                 </tr>
@@ -273,23 +273,23 @@
                     <td style="width: 30%;">
                         <div class="table-center">
                             <div>
-                                <div id="mining-tier-div"></div>
+                                <div id="mining-tier-div" aria-live="off"></div>
                                 <button id="mining-tier-btn" class="huge-btn" style="font-size: 12px;" onclick="MINING_TIER.upgrade()"></button><br>
                                 <button id="mining-tier-undo-btn" class="huge-btn" style="font-size: 12px; min-height: 30px; height: auto; width: 250px;" onclick="MINING_TIER.undo()"></button>
                             </div><div id="mining-ascend-unlock">
-                                <div id="mining-ascend-div"></div>
+                                <div id="mining-ascend-div" aria-live="off"></div>
                                 <button id="mining-ascend-btn" class="huge-btn" style="font-size: 12px;" onclick="MINING_TIER.ascend()"></button><br>
                                 <button id="mining-ascend-undo-btn" class="huge-btn" style="font-size: 12px; min-height: 30px; height: auto; width: 250px;" onclick="MINING_TIER.ascend_undo()"></button>
                             </div>
                         </div>
                         <div id="mining-tier-bonus"></div>
                     </td><td style="width: 40%;">
-                        <p id="mining-text"></p>
-                        <p id="super-mining-text"></p>
+                        <p id="mining-text" aria-live="off"></p>
+                        <p id="super-mining-text" aria-live="off"></p>
                         <div id="ores-grid"></div>
-                        <subtitle id="mining-note"></subtitle>
+                        <subtitle id="mining-note" aria-live="off"></subtitle>
                     </td><td style="width: 30%;">
-                        <h3 id="mined-resources-text"></h3>
+                        <h3 id="mined-resources-text" aria-live="off"></h3>
                         <div id="ores-list"></div>
                     </td>
                 </tr>
@@ -321,8 +321,8 @@
         </div>
         
         <div id="black-hole-tab" aria-live="off">
-            <p id="black-hole-html"></p>
-            <p id="remnant-html"></p>
+            <p id="black-hole-html" aria-live="off"></p>
+            <p id="remnant-html" aria-live="off"></p>
             <div id="remnant-upgs">
                 <button class="remnant-upg">
                     <b>Welcome</b> [0]<br>Shark Level Bonuses are <b style="color: lime;">???</b> stronger.<br>Cost: ???
@@ -346,7 +346,7 @@
                     <button id="ss-pluto"><img src="textures/solar-system/hidden.png"><br>Pluto</button>
                     <button id="ss-sun" style="grid-column: 1 / 3;"><img src="textures/solar-system/hidden.png"><br>Sun</button>
                 </div><div style="width: 600px; margin-left: 10px;">
-                    <p id="rocket-part-div"></p>
+                    <p id="rocket-part-div" aria-live="off"></p>
                     <div id="rocket-part-btns"></div>
                     <div id="solar-system-desc-div">
                         <p id="ss-title">???</p>
@@ -361,7 +361,7 @@
                 </div>
             </div>
         </div><div id="constellation-tab" aria-live="off">
-            <p id="bh-tier-div"></p>
+            <p id="bh-tier-div" aria-live="off"></p>
             <button id="bh-tier-button" class="huge-btn" onclick="CONSTELLATION.upgrade()" style="font-size: 12px;">Reach the requirement to increase the black hole tier.</button>
             <div id="constellation-progress" style="width: 500px; margin: auto;">
                 <div id="cp-bar"></div>
@@ -376,16 +376,16 @@
         <div id="space-base-tab" aria-live="off">
             <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));">
                 <div>
-                    <p id="observ-div"></p>
+                    <p id="observ-div" aria-live="off"></p>
                     <div id="spacebase-upgs-o" class="spacebase-upgs"></div>
                 </div><div id="reserv-content">
-                    <p id="reserv-div"></p>
+                    <p id="reserv-div" aria-live="off"></p>
                     <div id="spacebase-upgs-r" class="spacebase-upgs"></div>
                 </div><div id="traject-content">
-                    <p id="traject-div"></p>
+                    <p id="traject-div" aria-live="off"></p>
                     <div id="spacebase-upgs-t" class="spacebase-upgs"></div>
                 </div><div id="experiment-content">
-                    <p id="experiment-div"></p>
+                    <p id="experiment-div" aria-live="off"></p>
                     <button class="huge-btn" id="experiment-button" onclick="EXPERIMENT_TIER.reset()" style="font-size: 12px;"></button>
                     <div id="experiment-boosts"></div>
                 </div>
@@ -393,8 +393,8 @@
         </div>
 
         <div id="hadron-su-tab" aria-live="off">
-            <p id="fundamental-amount-div"></p>
-            <subtitle id="starter-upg-note"></subtitle>
+            <p id="fundamental-amount-div" aria-live="off"></p>
+            <subtitle id="starter-upg-note" aria-live="off"></subtitle>
             <div id="starter-upgrades-table">
                 <button>
                     <div class="starter-upg-title">Shark Tier</div>
@@ -407,12 +407,12 @@
             <table class="table">
                 <tr>
                     <td style="width: 50%;">
-                        <div id="shark-iq-div"></div>
+                        <div id="shark-iq-div" aria-live="off"></div>
                         <div id="shark-iq-calc"></div>
                     </td><td style="width: 50%;">
-                        <div id="shark-tier-div"></div>
-                        <subtitle id="shark-tier-note"></subtitle>
-                        <div id="shark-tier-req-div"></div>
+                        <div id="shark-tier-div" aria-live="off"></div>
+                        <subtitle id="shark-tier-note" aria-live="off"></subtitle>
+                        <div id="shark-tier-req-div" aria-live="off"></div>
                         <div id="shark-tier-bonus"></div>
                     </td>
                 </tr>
@@ -461,11 +461,11 @@
                 </div>
             </div>
         </div><div id="dna-tab" aria-live="off">
-            <subtitle id="dna-note"></subtitle>
+            <subtitle id="dna-note" aria-live="off"></subtitle>
             <div id="dna-background">
                 <div id="dna-texture"></div>
                 <div id="dna-content">
-                    <div id="dna-descirption">
+                    <div id="dna-descirption" aria-live="off">
                         The length of your Shark <b>DNA (Deoxyribonucleic Acid)</b> is <h3>100</h3> (+0) nanometers.<br>
                         Increases the tetration of Fish by <h4>+???</h4> and strengthens the first 4 Nucleobases by <h4>???%</h4>.
                     </div>
@@ -523,7 +523,7 @@
         </div>
 
         <div id="scalings-tab" aria-live="off">
-            <subtitle id="scaling-info">Scalings will be added as soon as you reach them.</subtitle>
+            <subtitle id="scaling-info" aria-live="off">Scalings will be added as soon as you reach them.</subtitle>
             <table align="center" id="scalings-table"></table>
         </div>
 
@@ -549,7 +549,7 @@
                 </button>
             </div>
         </div><div id="undead-tab" aria-live="off">
-            <div id="undead-essence-html"></div>
+            <div id="undead-essence-html" aria-live="off"></div>
             <div id="undead-upgrades-table"></div>
         </div><div id="actinium-tab" aria-live="off">
             <table style="width: 100%;">
@@ -588,19 +588,19 @@
             <table class="table">
                 <tr>
                     <td style="width: 50%;">
-                        <div id="alpha-particle-div"></div>
-                        <div id="beta-particle-div"></div>
-                        <div id="gamma-ray-particle-div"></div>
+                        <div id="alpha-particle-div" aria-live="off"></div>
+                        <div id="beta-particle-div" aria-live="off"></div>
+                        <div id="gamma-ray-particle-div" aria-live="off"></div>
                     </td><td style="width: 50%;">
-                        <div id="barium-particle-div"></div>
-                        <div id="krypton-particle-div"></div>
-                        <div id="energy-particle-div"></div>
+                        <div id="barium-particle-div" aria-live="off"></div>
+                        <div id="krypton-particle-div" aria-live="off"></div>
+                        <div id="energy-particle-div" aria-live="off"></div>
                     </td>
                 </tr>
             </table>
             <button class="omni huge-btn" id="uranium-235-fission" onclick="startFission()">Insert one neutron into Uranium-235 to start fission.</button>
         </div><div id="isotopes-tab" aria-live="off">
-            <div id="isotopes-div"></div>
+            <div id="isotopes-div" aria-live="off"></div>
             <div class="table-center" id="isotopes-table">
                 <div class="isotope-div">
                     <div class="isotope-buttons">
@@ -672,7 +672,7 @@
                 </div>
             </div>
         </div><div id="rune-sacrifice-tab" aria-live="off">
-            <subtitle id="rune-sacrifice-info"></subtitle>
+            <subtitle id="rune-sacrifice-info" aria-live="off"></subtitle>
             <button class="omni" id="rune-sacrifice-btn" onclick="RUNE_SACRIFICE.enter()">
                 <h3 id="rune-sacrifice-tier">Sacrifice Tier I</h3>
                 <ul id="rune-sacrifice-res">
@@ -685,13 +685,13 @@
             </button>
         </div><div id="god-tab" aria-live="off">
             <button class="omni huge-btn" id="god-button" onclick="OMNI.enterGod()"></button>
-            <subtitle id="god-info"></subtitle>
+            <subtitle id="god-info" aria-live="off"></subtitle>
         </div><div id="rebirth-upgs-tab" aria-live="off">
-            <div id="rebirth-points-div"></div>
+            <div id="rebirth-points-div" aria-live="off"></div>
             <div id="rebirth-upgrades-div">
                 <button class="rebirth-upgrade"></button>
             </div>
-            <subtitle id="rebirth-upgrades-note"></subtitle>
+            <subtitle id="rebirth-upgrades-note" aria-live="off"></subtitle>
         </div><div id="rebirth-past10-tab" aria-live="off">
             <table id="rebirth-past10-table" align="center">
                 <tr>
