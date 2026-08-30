@@ -89,8 +89,20 @@ function updatePopup() {
 
 // Keeps Tab/Shift+Tab cycling within the open dialog instead of letting
 // focus escape to the (visually covered, but not otherwise unreachable)
-// page behind it.
-function trapPopupFocus(event) {
+// page behind it, and lets Escape dismiss it. Escape always acts like
+// the last button (No/Cancel for a confirmation or prompt, the only
+// button for a plain info popup) rather than the first, so it never
+// accepts something the user meant to back out of.
+function popupKeydown(event) {
+    if (event.key == 'Escape') {
+        event.preventDefault()
+
+        var p = popups[0], last = p.buttonName.length-1
+        p.buttonFunction?.[last]?.(el("popup-input")?.value)
+        closePopup()
+        return
+    }
+
     if (event.key !== 'Tab') return
 
     var focusable = [...el('popup-ctn').querySelectorAll('button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])')].filter(x => !x.disabled && x.offsetParent !== null)
