@@ -724,6 +724,7 @@ LANGUAGES.PL = {
             'max-research-amt': ['Maksimum badań Na Stronę',['∞','15','20','25','30']],
             'visible-research': [`Widoczność Zakupionych Badań`,["Pokaż","Ukryj"]],
             'notify': ['Tab Notification',['Disabled','Enabled']],
+            'animations': ['Animacje Gry',['Włączone','Ograniczony Ruch','Wyłączone']],
         },
 
         'radio-desc-default' : ['Wyłączone','Włączone'],

@@ -357,6 +357,7 @@ LANGUAGES.ER = {
             'autosave': ['Autosaving',['Disabled','Enabled']],
             'autosave-time': ['Autosave Interval',['15s','30s','60s','120s']],
             'offline': ['Offline Progress',['Disabled','Enabled']],
+            'animations': ['Game Animations',['On','Reduced Motion','Off']],
         },
 
         'radio-desc-default' : ['Disabled','Enabled'],

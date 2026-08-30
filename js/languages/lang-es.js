@@ -399,6 +399,7 @@ LANGUAGES.ES = {
             'autosave': ['Autoguardado',['Desactivado','Activado']],
             'autosave-time': ['Intervalo de Autoguardado',['15s','30s','60s','120s']],
             'offline': ['Progreso offline',['Desactivado','Activado']],
+            'animations': ['Animaciones del Juego',['Activado','Movimiento Reducido','Desactivado']],
         },
 
         'radio-desc-default' : ['Desactivado','Activado'],

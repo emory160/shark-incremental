@@ -520,6 +520,7 @@ LANGUAGES.VN = {
             'autosave': ['Tự động lưu',['Tắt','Bật']],
             'autosave-time': ['Khoảng thời gian tự động lưu',['15s','30s','60s','120s']],
             'offline': ['Tiến triển ngoại tuyến',['Tắt','Bật']],
+            'animations': ['Hiệu ứng hoạt hình',['Bật','Giảm chuyển động','Tắt']],
         },
 
         'radio-desc-default' : ['Tắt','Bật'],

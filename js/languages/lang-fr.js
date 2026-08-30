@@ -628,6 +628,7 @@ LANGUAGES.FR = {
 			'offline': ['Progression Hors-ligne',['Désactiver','Activer']],
 			'max-research-amt': ['Nombres de recherches maximales par page',['∞','15','20','25','30']],
             'visible-research': [`Visibilité de la recherche achetée`,["Affiché","Masquée"]],
+			'animations': ['Animations du Jeu',['Activer','Mouvement Réduit','Désactiver']],
 		},
 
 		'radio-desc-default' : ['Désactiver','Activer'],

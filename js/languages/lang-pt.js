@@ -1042,6 +1042,7 @@ LANGUAGES.PT = {
             'max-research-amt': ['Máximo de melhorias de pesquisas por página',['∞','15','20','25','30']],
             'visible-research': [`Visibilidade das pesquisas compradas`,["Mostra","Esconde"]],
             'notify': ['Notificações',['Desabilitado','Habilitado']],
+            'animations': ['Animações do Jogo',['Habilitado','Movimento Reduzido','Desabilitado']],
         },
 
         'radio-desc-default' : ['Desabilitado','Habilitado'],
