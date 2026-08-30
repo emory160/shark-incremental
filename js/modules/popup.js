@@ -52,6 +52,7 @@ function updatePopup() {
         popup_el.style.pointerEvents = 'all'
         popup_el.style.opacity = 1
         popup_el.style.transform = 'scale(1)'
+        popup_el.setAttribute('aria-hidden','false')
 
         el('popup-html').innerHTML = p.html + (p.type == 'prompt' ? '<br><textarea id="popup-input" placeholder="'+lang_text('prompt-placeholder')+'" rows="5"></textarea>' : '')
         el('popup-btns').innerHTML = p.buttonName.map((b,i) => `<button id="popup-btn${i}">${b}</button>`).join('')
@@ -63,6 +64,7 @@ function updatePopup() {
             popup_el.style.pointerEvents = 'none'
             popup_el.style.opacity = 0
             popup_el.style.transform = 'scale(1.1)'
+            popup_el.setAttribute('aria-hidden','true')
 
             setTimeout(updatePopup,500)
         }
