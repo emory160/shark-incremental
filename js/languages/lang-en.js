@@ -1724,6 +1724,7 @@ LANGUAGES.EN = {
             'max-research-amt': ['Maximum research upgrades per page',['∞','15','20','25','30']],
             'visible-research': [`Purchased research's visibility`,["Shown","Hidden"]],
             'notify': ['Tab Notification',['Disabled','Enabled']],
+            'animations': ['Game Animations',['On','Reduced Motion','Off']],
             'condenser-ratio': ['Condenser Ratio',['10%','25%','50%','100%']],
         },
 

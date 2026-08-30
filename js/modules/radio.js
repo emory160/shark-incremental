@@ -33,5 +33,16 @@ function chooseRadio(id,v) {
     if (id == 'autosave-time') {
         clearInterval(autosave)
         autosave = setInterval(save, [15000,30000,60000,120000][player.radios[id]], true)
+    } else if (id == 'animations') {
+        applyAnimationsSetting()
     }
+}
+
+// 0 = On, 1 = Reduced Motion (stop large panning background animations
+// while keeping short local feedback like glows and fades), 2 = Off
+// (freeze every animation/transition, see body.anim-* rules in main.css).
+function applyAnimationsSetting() {
+    let v = player.radios.animations ?? 0
+    document.body.classList.toggle('anim-reduced', v == 1)
+    document.body.classList.toggle('anim-off', v == 2)
 }

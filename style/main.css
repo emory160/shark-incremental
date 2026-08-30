@@ -1822,3 +1822,25 @@ supsub sub {
 #rebirth-past10-table td:first-child {
 	font-weight: bold;
 }
+
+/* Game Animations option. Reduced Motion stops the large continuous
+   background-panning animations (the classic vestibular-disorder
+   trigger) - the per-tab cosmic-pattern set as an inline body style,
+   the hadron cutscene's copy of it, and the scrolling DNA texture -
+   while keeping short local feedback like glows, pulses and fades.
+   Off freezes every animation and transition in the game, including
+   ones JS sets as inline styles (e.g. setStyle('fp-bar','animation',...)),
+   which is why !important is needed here. */
+body.anim-reduced,
+body.anim-reduced #hadron-cutscene,
+body.anim-reduced #dna-texture {
+	animation: none !important;
+}
+
+body.anim-off,
+body.anim-off *,
+body.anim-off *::before,
+body.anim-off *::after {
+	animation: none !important;
+	transition: none !important;
+}
