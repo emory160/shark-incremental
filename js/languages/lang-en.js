@@ -12,7 +12,7 @@ LANGUAGES.EN = {
         'fish-costName': toTextStyle('Fish','fish'),
 
         'prestige-name': "Prestige Shards",
-        'prestige-costName': toTextStyle('Prestige','prestige') + " Shards",
+        'prestige-costName': toTextStyle('Prestige Shards','prestige'),
 
         'coral-name': "Coral",
         'coral-costName': toTextStyle('Coral','coral'),
