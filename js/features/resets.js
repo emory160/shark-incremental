@@ -258,6 +258,7 @@ const RESETS = {
 
                     el('hadron-cutscene').style.pointerEvents = 'all'
                     el('hadron-cutscene').style.opacity = 1
+                    el('hadron-cutscene').setAttribute('aria-hidden','false')
 
                     setTimeout(() => {
                         el('hadron-cutscene-text').style.opacity = 1
@@ -270,6 +271,7 @@ const RESETS = {
         
                             setTimeout(() => {
                                 el('hadron-cutscene').style.opacity = 0
+                                el('hadron-cutscene').setAttribute('aria-hidden','true')
 
                                 tmp.bh_pause = false
                                 gainCurrency('hadron',tmp.currency_gain.hadron)
