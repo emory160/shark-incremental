@@ -80,7 +80,7 @@ const SOLAR_SYSTEM = {
 const SS_KEYS = Object.keys(SOLAR_SYSTEM)
 
 function isSSObserved(id) {
-    return player.solar_system.completion[id]
+    return !!player.solar_system.completion[id]
 }
 
 var ss_choose = ''

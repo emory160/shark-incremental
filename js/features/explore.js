@@ -151,7 +151,7 @@ function getBaseExploration(i=player.explore.active,amt=player.explore.best_fish
 }
 
 function inExploration(i) { return player.explore.active == i || player.explore.active == 4 && i < 4 }
-function hasDepthMilestone(i,j) { return i < 5 && hasSMilestone(3) || tmp.explore_mil_reached[i][j] }
+function hasDepthMilestone(i,j) { return !!(i < 5 && hasSMilestone(3) || tmp.explore_mil_reached[i][j]) }
 
 function calcNextDepth(x,gain,i) {
     if (x.lt(10)) {
