@@ -6,29 +6,36 @@ function el_classes(data) { return Object.keys(data).filter(x => data[x]).join("
 // when the value they'd set is identical to last time.
 const RENDER_CACHE = { text: new Map(), html: new Map(), display: new Map(), cls: new Map(), style: new Map() }
 
+// Map.get() returns undefined both for "never cached" and "cached as
+// undefined", so a bare `=== value` check silently skips the very first
+// write whenever the caller's computed value happens to be undefined
+// (e.g. an unl() check built from `||`/`&&` over a not-yet-set player
+// property) - the element is then stuck at its CSS-default state (often
+// visible) until a later call happens to produce a different value.
+// has() disambiguates the two cases so the first write always happens.
 function setText(id, value) {
-    if (RENDER_CACHE.text.get(id) === value) return
+    if (RENDER_CACHE.text.has(id) && RENDER_CACHE.text.get(id) === value) return
     RENDER_CACHE.text.set(id, value)
     el(id).textContent = value
 }
 function setHTML(id, value) {
-    if (RENDER_CACHE.html.get(id) === value) return
+    if (RENDER_CACHE.html.has(id) && RENDER_CACHE.html.get(id) === value) return
     RENDER_CACHE.html.set(id, value)
     el(id).innerHTML = value
 }
 function setDisplay(id, visible) {
-    if (RENDER_CACHE.display.get(id) === visible) return
+    if (RENDER_CACHE.display.has(id) && RENDER_CACHE.display.get(id) === visible) return
     RENDER_CACHE.display.set(id, visible)
     el(id).style.display = el_display(visible)
 }
 function setClass(id, value) {
-    if (RENDER_CACHE.cls.get(id) === value) return
+    if (RENDER_CACHE.cls.has(id) && RENDER_CACHE.cls.get(id) === value) return
     RENDER_CACHE.cls.set(id, value)
     el(id).className = value
 }
 function setStyle(id, prop, value) {
     let key = id + '.' + prop
-    if (RENDER_CACHE.style.get(key) === value) return
+    if (RENDER_CACHE.style.has(key) && RENDER_CACHE.style.get(key) === value) return
     RENDER_CACHE.style.set(key, value)
     el(id).style[prop] = value
 }
