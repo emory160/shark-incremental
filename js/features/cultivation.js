@@ -283,17 +283,18 @@ function updateCultivationHTML() {
 
     var ascend = player.humanoid.mining_ascend
 
-    el('ores-grid').style.display = el('mining-note').style.display = el_display(!hu4)
+    setDisplay('ores-grid', !hu4)
+    setDisplay('mining-note', !hu4)
     if (!hu4) for (let x = 0; x < 8; x++) {
-        var o = ores_grid[x], e = el(`ore-grid-${x}`), s = o.super
+        var o = ores_grid[x], s = o.super
 
-        e.style.background = ORES[o.name].color
+        setStyle(`ore-grid-${x}`, 'background', ORES[o.name].color)
 
         var h = `${toColoredText(lang[o.name])} ${toColoredText('×'+o.value.format(0))}<br>${toColoredText(o.health.format(0)+txt.heart,s?'orangered':'red')}`
 
         if (o.fortune.gt(0)) h = `${s ? toColoredText(o.fortune.format(0)+txt.luck,'orange') : toTextStyle(o.fortune.format(0)+txt.luck,'gold')}<br>` + h
 
-        e.innerHTML = `<div>${h}</div>`
+        setHTML(`ore-grid-${x}`, `<div>${h}</div>`)
     }
 
     var speed, dmg
@@ -304,16 +305,16 @@ function updateCultivationHTML() {
         speed = tmp.mining_speed, dmg = tmp.mining_damage
     }
 
-    el("mining-progress").innerHTML = hu4 ? "???" : speed.gte(10) ? format(dmg.mul(speed))+"/s" : formatTime(Decimal.sub(1,mine_time).div(speed).max(0),1)
-    el("mining-damage").innerHTML = tmp.mining_damage.format(0)
-    el("mining-fortune").innerHTML = tmp.mining_fortune.format(0)
+    setHTML("mining-progress", hu4 ? "???" : speed.gte(10) ? format(dmg.mul(speed))+"/s" : formatTime(Decimal.sub(1,mine_time).div(speed).max(0),1))
+    setHTML("mining-damage", tmp.mining_damage.format(0))
+    setHTML("mining-fortune", tmp.mining_fortune.format(0))
 
-    el("super-mining-text").style.display = el_display(ascend.gte(1))
+    setDisplay("super-mining-text", ascend.gte(1))
     if (ascend.gte(1)) {
-        el("super-mining-damage").innerHTML = tmp.super_mining_damage.format(0)
-        el("super-mining-fortune").innerHTML = tmp.super_mining_fortune.format(0)
+        setHTML("super-mining-damage", tmp.super_mining_damage.format(0))
+        setHTML("super-mining-fortune", tmp.super_mining_fortune.format(0))
     }
-    
+
     var r = ""
 
     ORE_KEYS.forEach(x => {
@@ -321,14 +322,14 @@ function updateCultivationHTML() {
         if (amt.gt(0)) r += `<div class='ore-list'>${c.costName+" ×"+amt.format(0)+(c.passive>0?" "+amt.formatGain(tmp.currency_gain[x]):"")}</div>`
     })
 
-    el('ores-list').innerHTML = r
+    setHTML('ores-list', r)
 
     var tier = player.humanoid.mining_tier
 
-    el('mining-tier').innerHTML = tier.format(0)
+    setHTML('mining-tier', tier.format(0))
 
-    el('mining-tier-undo-btn').className = el_classes({locked: tier.eq(0)})
-    el('mining-ascend-undo-btn').className = el_classes({locked: ascend.eq(0)})
+    setClass('mining-tier-undo-btn', el_classes({locked: tier.eq(0)}))
+    setClass('mining-ascend-undo-btn', el_classes({locked: ascend.eq(0)}))
 
     var req = MINING_TIER.require, next_tier = MINING_TIER.base_milestone[tmp.ore_spawn_base], next_gen = MINING_TIER.gen_milestone[tmp.ore_generator]
 
@@ -336,16 +337,16 @@ function updateCultivationHTML() {
     if (next_tier && tmp.ore_spawn_base < 8) r += "<br>" + lang_text('next-mining-tier') + " " + format(next_tier,0) + " - " + lang_text('mining-tier-ore-unlock',CURRENCIES[ORE_KEYS[tmp.ore_spawn_base+1]].costName)
     if (!hu4 && next_gen) r += "<br>" + lang_text('next-mining-tier') + " " + format(next_gen,0) + " - " + lang_text('mining-tier-ore-generation',CURRENCIES[ORE_KEYS[tmp.ore_generator]].costName)
 
-    el('mining-tier-btn').innerHTML = r + "<br>" + lang_text('require') + ": " + req.format(0) + " " + CURRENCIES.stone.costName
-    el('mining-tier-btn').className = el_classes({locked: CURRENCIES.stone.amount.lt(req), 'huge-btn': true})
+    setHTML('mining-tier-btn', r + "<br>" + lang_text('require') + ": " + req.format(0) + " " + CURRENCIES.stone.costName)
+    setClass('mining-tier-btn', el_classes({locked: CURRENCIES.stone.amount.lt(req), 'huge-btn': true}))
 
     lang = lang_text('mining-tier-bonus')
-    el('mining-tier-bonus').innerHTML = tmp.mining_tier_bonus.map((x,i)=>x?`<div>${lang[i](x)}</div>`:"").join("")
+    setHTML('mining-tier-bonus', tmp.mining_tier_bonus.map((x,i)=>x?`<div>${lang[i](x)}</div>`:"").join(""))
 
     var unl = isSSObserved('moon')
-    el('mining-ascend-unlock').style.display = el_display(unl)
+    setDisplay('mining-ascend-unlock', unl)
     if (unl) {
-        el('mining-ascend').innerHTML = ascend.format(0)
+        setHTML('mining-ascend', ascend.format(0))
 
         req = MINING_TIER.ascend_require, next_tier = MINING_TIER.ascend_base_milestone[tmp.ascend_ore_spawn_base], next_gen = MINING_TIER.ascend_gen_milestone[tmp.ascend_ore_generator]
 
@@ -353,9 +354,9 @@ function updateCultivationHTML() {
         if (next_tier) r += "<br>" + lang_text('next-mining-ascend') + " " + format(next_tier,0) + " - " + lang_text('mining-tier-ore-unlock',CURRENCIES[ORE_KEYS[tmp.ascend_ore_spawn_base+9]].costName);
         if (!hu4 && next_gen) r += "<br>" + lang_text('next-mining-ascend') + " " + format(next_gen,0) + " - " + lang_text('mining-tier-ore-generation',CURRENCIES[ORE_KEYS[tmp.ascend_ore_generator+9]].costName);
         r += `<br>${lang_text('require')}: <b>${lang_text('mining-tier')}</b> ${req.format(0)}`
-        
-        el('mining-ascend-btn').innerHTML = r
-        el('mining-ascend-btn').className = el_classes({locked: tier.lt(req), 'huge-btn': true})
+
+        setHTML('mining-ascend-btn', r)
+        setClass('mining-ascend-btn', el_classes({locked: tier.lt(req), 'huge-btn': true}))
     }
 }
 

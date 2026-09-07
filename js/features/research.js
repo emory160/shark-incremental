@@ -1122,11 +1122,11 @@ function updateResearchHTML() {
 
     var m = MAX_RESEARCH[player.radios['max-research-amt']]
     var unl = player.radios['max-research-amt'] != 0 && visible_research.length > m
-    el("research-page-div").style.display = el_display(unl)
+    setDisplay("research-page-div", unl)
     if (unl) {
         var c = Math.max(1,Math.ceil(visible_research.length/m))
 
-        el("research-total-pages").innerHTML = lang_text('research-pages',c)
+        setHTML("research-total-pages", lang_text('research-pages',c))
 
         if (research_page > c) {
             el("research-page").value = research_page = c
@@ -1137,25 +1137,25 @@ function updateResearchHTML() {
 
     for (let [i,x] of Object.entries(RESEARCH)) {
         let unl = visible_research.includes(i) && x.unl(), el_id = "research-"+i
-        el(el_id+"-div").style.display = el_display(unl)
+        setDisplay(el_id+"-div", unl)
         if (unl) {
             let amt = player.research[i], max = x.max??1, bought = amt.gte(max), afford = true
 
-            el(el_id+"-desc").innerHTML = `<b style="font-size:12px">[${i}]</b> ` + (text[3][i]?.[1] ?? lang_text(el_id+"-desc"))
-            el(el_id+"-require").style.display = el_display(!bought)
-            el(el_id+"-button").style.display = el_display(!bought)
-            if ((x.max??1)>1&&!x.noBuyMax) el(el_id+"-max-button").style.display = el_display(!bought)
+            setHTML(el_id+"-desc", `<b style="font-size:12px">[${i}]</b> ` + (text[3][i]?.[1] ?? lang_text(el_id+"-desc")))
+            setDisplay(el_id+"-require", !bought)
+            setDisplay(el_id+"-button", !bought)
+            if ((x.max??1)>1&&!x.noBuyMax) setDisplay(el_id+"-max-button", !bought)
             if (!bought) {
-                el(el_id+"-require").innerHTML = `<b>${text[2]}:</b> ` + x.require.map(r => {
+                setHTML(el_id+"-require", `<b>${text[2]}:</b> ` + x.require.map(r => {
                     let curr = CURRENCIES[r[0]], cost = max>1?r[2](amt):r[2], a = (r[1]?curr.total:curr.amount).gte(cost)
                     if (afford) afford &&= a
                     return `<span ${a ? "" : `style="color: #800"`}>${format(cost,0)}</span>`+" "+(r[1]?lang_text("total")+" ":"")+curr.costName
-                }).join(", ")
-                el(el_id+"-button").className = el_classes({locked: !afford})
-                el(el_id+"-button").textContent = lang_text('research-afford',afford)
+                }).join(", "))
+                setClass(el_id+"-button", el_classes({locked: !afford}))
+                setText(el_id+"-button", lang_text('research-afford',afford))
             }
-            el(el_id+"-status").innerHTML = `<div>${x.max > 1 ? `<b>${text[1]}:</b> ${amt.format(0)} / ${format(max,0)}` : lang_text('research-bought',bought)}</div>`
-            + (x.effDesc ? `<div><b>${text[0]}:</b> ${x.effDesc(tmp.research_eff[i])}</div>` : "")
+            setHTML(el_id+"-status", `<div>${x.max > 1 ? `<b>${text[1]}:</b> ${amt.format(0)} / ${format(max,0)}` : lang_text('research-bought',bought)}</div>`
+            + (x.effDesc ? `<div><b>${text[0]}:</b> ${x.effDesc(tmp.research_eff[i])}</div>` : ""))
         }
     }
 }
