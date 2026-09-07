@@ -235,17 +235,19 @@ function setupExplorationHTML() {
                 <button id="explore-${i}-explore" onclick="enterExploration(${i})">Your current base is 0/s.<br>Explore the ocean!</button>
                 <div>
                     <div style="min-height: 118px; text-align: left;">
-                        <h3>${lang_text("explore-"+i+"-name")}</h3><br>
-                        ${curr.costName}: <span id="explore-${i}-res">0</span><br>
-                        <b>${lang_text("effect")}:</b> <span id="explore-${i}-effect">???</span><br>
-                        <b>${lang_text("depth")}:</b> <span id="explore-${i}-depth">0m</span>
+                        <h3>${lang_text("explore-"+i+"-name")}</h3>
+                        <div>${curr.costName}: <span id="explore-${i}-res">0</span></div>
+                        <div><b>${lang_text("effect")}:</b> <span id="explore-${i}-effect">???</span></div>
+                        <div><b>${lang_text("depth")}:</b> <span id="explore-${i}-depth">0m</span></div>
                     </div><div class="table-left">
                         <button class="explore-cost" id="explore-${i}-cost1" onclick="buyExploreUpgrade(${i},0)"></button>
                         <button class="explore-cost" id="explore-${i}-cost2" onclick="buyExploreUpgrade(${i},1)">Double depth progression gained.<br>Cost: ???</button>
                     </div>
                 </div><div>
-                    <span><b>${lang_text("explore-while")}:</b> ${lang_text("explore-"+i+"-desc")}</span><br><br>
-                    ${x.milestone.map((p,j) => `<span id="explore-${i}-milestone-${j}">• ${format(p,0,12,"sc")}m: ${texts[j]}</span><br>`).join("")}
+                    <p><b>${lang_text("explore-while")}:</b> ${lang_text("explore-"+i+"-desc")}</p>
+                    <ul class="explore-milestones">
+                        ${x.milestone.map((p,j) => `<li id="explore-${i}-milestone-${j}">${format(p,0,12,"sc")}m: ${texts[j]}</li>`).join("")}
+                    </ul>
                 </div>
             </div>
         </div>
@@ -263,42 +265,42 @@ function updateExplorationHTML() {
     ]
     EXPLORE.forEach((x,i)=>{
         let unl = player.explore.unl > i, el_id = `explore-${i}-`
-        el(el_id+'div').style.display = el_display(unl)
+        setDisplay(el_id+'div', unl)
         if (unl) {
             let b = player.explore.base[i]
             if (i == a) {
                 let bb = getBaseExploration(i)
-                el(el_id+'explore').innerHTML = lang_text('explore-inside',b,bb,x.fish_req)
+                setHTML(el_id+'explore', lang_text('explore-inside',b,bb,x.fish_req))
                 //`Base ${b.format()}/s`+(bb.gt(b) ? " ➜ " : " ~ ")+`${bb.format()}/s`+`.<br>Reach ${format(x.fish_req,0)} best ${fish_text}.`
             }
-            else el(el_id+'explore').innerHTML = lang_text("explore-outside",b)
+            else setHTML(el_id+'explore', lang_text("explore-outside",b))
 
             let res = player.explore.res[i], curr = CURRENCIES[x.resource], text_curr = curr.costName
 
-            el(el_id+'res').textContent = res.format(0) + " " + res.formatGain(tmp.currency_gain[x.resource])
-            el(el_id+'effect').innerHTML = x.effDesc(tmp.explore_eff[i])
+            setText(el_id+'res', res.format(0) + " " + res.formatGain(tmp.currency_gain[x.resource]))
+            setHTML(el_id+'effect', x.effDesc(tmp.explore_eff[i]))
 
             let depth = player.explore.depth[i]
-            el(el_id+'depth').innerHTML = depth.format() + "m / " + format(x.maxDepth,0) + "m " + depth.formatGain(calcNextDepth(depth,tmp.depth_gain[i].div(FPS),i).sub(depth).mul(FPS))
+            setHTML(el_id+'depth', depth.format() + "m / " + format(x.maxDepth,0) + "m " + depth.formatGain(calcNextDepth(depth,tmp.depth_gain[i].div(FPS),i).sub(depth).mul(FPS)))
 
-            var cost_el = el(el_id+'cost1'), costs = x.cost[0], upgs = player.explore.upg[i]
-            
+            var costs = x.cost[0], upgs = player.explore.upg[i]
+
             var amount = upgs[0], cost = costs[0](amount), res_curr = CURRENCIES[costs[2]]
-            cost_el.innerHTML = `${lang_text("explore-doubler-1",text_curr)} [${amount.format(0)}]<br>${texts[0]}: ${cost.format(0)} ${res_curr.costName}`
-            cost_el.className = el_classes({"explore-cost": true, locked: res_curr.amount.lt(cost)})
+            setHTML(el_id+'cost1', `${lang_text("explore-doubler-1",text_curr)} [${amount.format(0)}]<br>${texts[0]}: ${cost.format(0)} ${res_curr.costName}`)
+            setClass(el_id+'cost1', el_classes({"explore-cost": true, locked: res_curr.amount.lt(cost)}))
 
-            cost_el = el(el_id+'cost2'), costs = x.cost[1], amount = upgs[1], cost = costs[0](amount)
-            cost_el.innerHTML = `${texts[1]} [${amount.format(0)}]<br>${texts[0]}: ${cost.format(0)} ${text_curr}`
-            cost_el.className = el_classes({"explore-cost": true, locked: res.lt(cost)})
+            costs = x.cost[1], amount = upgs[1], cost = costs[0](amount)
+            setHTML(el_id+'cost2', `${texts[1]} [${amount.format(0)}]<br>${texts[0]}: ${cost.format(0)} ${text_curr}`)
+            setClass(el_id+'cost2', el_classes({"explore-cost": true, locked: res.lt(cost)}))
 
             for (let j = 0; j < x.milestone.length; j++) {
                 let p = x.milestone[j]
-                el(`explore-${i}-milestone-${j}`).style.backgroundColor = depth.gte(p) ? "#0804" : "transparent"
+                setStyle(`explore-${i}-milestone-${j}`, 'backgroundColor', depth.gte(p) ? "#0804" : "transparent")
             }
         }
     })
 
-    el("next-explore").innerHTML = player.explore.unl < EXPLORE.length ? lang_text("explore-next",EXPLORE[player.explore.unl].level_req) : ""
+    setHTML("next-explore", player.explore.unl < EXPLORE.length ? lang_text("explore-next",EXPLORE[player.explore.unl].level_req) : "")
 }
 
 function updateExplorationTemp() {

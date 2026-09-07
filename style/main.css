@@ -14,6 +14,18 @@
 	--main-color: black;
 }
 
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
 * {
 	font-family: MainFont;
     table-align: center;
@@ -624,6 +636,11 @@ li {
 	width: 240px;
 	height: 80px;
 	font-size: 12px;
+}
+
+.explore-milestones {
+	margin: 8px 0 0;
+	padding-left: 20px;
 }
 
 .core-reactor-button {

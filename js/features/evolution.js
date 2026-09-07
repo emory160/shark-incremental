@@ -213,43 +213,45 @@ function updateEvolutionTreeHTML() {
     var maxed_row = []
 
     for (let x = 0; x < EVOLUTION_TREE.rows; x++) {
-        el("evolution-tree-available-"+x).style.display = el_display(x < unl_rows)
+        setDisplay("evolution-tree-available-"+x, x < unl_rows)
         if (x >= unl_rows) continue
         if (hasEvolutionTree(4*x) && hasEvolutionTree(4*x+1) && hasEvolutionTree(4*x+2) && hasEvolutionTree(4*x+3)) maxed_row[x] = true;
         var a = EVOLUTION_TREE.getAvilableSlot(x)
         row_available.push(a)
         var ca = EVOLUTION_TREE.getAvilableSlot(x,true)
         charged_row_available.push(ca)
-        el("evolution-tree-available-"+x).innerHTML = lang_text("evolution-tree-row",x+1,Math.max(ca,a))
+        setHTML("evolution-tree-available-"+x, lang_text("evolution-tree-row",x+1,Math.max(ca,a)))
     }
     for (let x = 0; x < EVOLUTION_TREE.rows*4; x++) {
         var row = Math.floor(x/4)
-        var tree_el = el("evolution-tree-"+x+"-div")
-        tree_el.style.display = el_display(row < unl_rows)
+        setDisplay("evolution-tree-"+x+"-div", row < unl_rows)
         if (row >= unl_rows) continue
         let c = tf_unl && row < EVOLUTION_TREE.charged_rows && maxed_row[row]
         let w = lang_texts[x]?.[1]?.(tmp.evolution_tree_effect[x]) ?? "Placeholder"
         if (c) w += "<hr class='line'>" + (lang_texts[x]?.[2]?.(tmp.charged_et_effect[x]) ?? "Placeholder")
-        el("evolution-tree-"+x+"-desc").innerHTML = w
-        tree_el.className = el_classes({locked: c ? !EVOLUTION_TREE.canAfford(x, charged_row_available[row], true) : !EVOLUTION_TREE.canAfford(x, row_available[row]), bought: !c && player.humanoid.tree.includes(x), 'pre-charged': c, charged: player.humanoid.tree.includes(x+"C"), "evolution-tree-btn": true})
+        setHTML("evolution-tree-"+x+"-desc", w)
 
-        el("evolution-tree-"+x+"-cost").textContent = format(EVOLUTION_TREE.getCost(x, c),0)
+        let bought = !c && player.humanoid.tree.includes(x), charged = player.humanoid.tree.includes(x+"C")
+        let locked = c ? !EVOLUTION_TREE.canAfford(x, charged_row_available[row], true) : !EVOLUTION_TREE.canAfford(x, row_available[row])
+        setClass("evolution-tree-"+x+"-div", el_classes({locked, bought, 'pre-charged': c, charged, "evolution-tree-btn": true}))
+        setText("evolution-tree-"+x+"-status", lang_text("evolution-tree-status", bought || charged, charged, locked))
+
+        setText("evolution-tree-"+x+"-cost", format(EVOLUTION_TREE.getCost(x, c),0))
     }
     lang_texts = [
         lang_text("cost"),
         lang_text("sharkoid-faith"),
     ]
     for (let [i,j] of Object.entries(EVOLUTION_TREE.faith_cost)) {
-        var el_btn = el("shark-faith-cost-"+i)
         var cost = j[1](player.humanoid.faith[i]), curr = CURRENCIES[j[0]]
-        el_btn.innerHTML = `+1 ${lang_texts[1]}<br>${lang_texts[0]}: ${format(cost,0)} ${curr.costName}`
-        el_btn.className = el_classes({locked: curr.amount.lt(cost), 'huge-btn': true})
+        setHTML("shark-faith-cost-"+i, `+1 ${lang_texts[1]}<br>${lang_texts[0]}: ${format(cost,0)} ${curr.costName}`)
+        setClass("shark-faith-cost-"+i, el_classes({locked: curr.amount.lt(cost), 'huge-btn': true}))
     }
 
-    el("sharkoid-faith-spent").innerHTML = tmp.unspent_faith.format(0)
-    el("sharkoid-faith-total").innerHTML = tmp.total_faith.format(0)
+    setHTML("sharkoid-faith-spent", tmp.unspent_faith.format(0))
+    setHTML("sharkoid-faith-total", tmp.total_faith.format(0))
 
-    el('respec-evolution-tree-2').style.display = el_display(tf_unl)
+    setDisplay('respec-evolution-tree-2', tf_unl)
 }
 
 function hasEvolutionTree(x,c) { return c ? player.humanoid.tree.includes(x+"C") : player.humanoid.tree.includes(x) }
@@ -505,6 +507,7 @@ function setupEvolutionHTML() { //  onmouseover="evolution_tree_hover = ${x}" on
         var y = 10*(row+1)
         h += `<button class="evolution-tree-btn" id="evolution-tree-${x}-div" onclick="purchaseEvolutionTree(${x})">
         <div class="etb-name">${lang_texts[x]?.[0]??"Placeholder"} [${y+x%4+1}]</div>
+        <span class="sr-only" id="evolution-tree-${x}-status"></span>
         <div class="etb-cost">${lang_text("cost")}: <span id="evolution-tree-${x}-cost">${EVOLUTION_TREE.getCost(x)}</span></div>
         <div id="evolution-tree-${x}-desc">Hello chat</div>
         </button>`

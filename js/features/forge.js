@@ -286,25 +286,25 @@ function updateForgeHTML() {
     var lang_forge = lang_text('forge')
     var locks = {}, queue = player.humanoid.forge.queue
 
-    el('forge-status').innerHTML = lang_text('forge-progress',
+    setHTML('forge-status', lang_text('forge-progress',
     lang_forge[queue]?.[0],
     queue != '' && formatTime(Decimal.sub(FORGE[queue].time[player.humanoid.forge.level[queue]], player.humanoid.forge.time).div(tmp.forge_speed).max(0),1))
-    +' | '+lang_text('forge-speed',formatMult(tmp.forge_speed))
+    +' | '+lang_text('forge-speed',formatMult(tmp.forge_speed)))
 
     for (let i of FORGE_KEYS) {
         var f = FORGE[i]
-        var forge_el = el(`forge-div-${i}`), unl = f.unl()
+        var unl = f.unl()
 
-        forge_el.style.display = el_display(unl)
+        setDisplay(`forge-div-${i}`, unl)
 
         if (!unl) continue
 
-        var lvl = player.humanoid.forge.level[i]
-        el(`forge-level-${i}`).innerHTML = lvl > 0 ? romanize(lvl) : '';
+        var lvl = player.humanoid.forge.level[i], maxed = lvl >= f.max
+        setHTML(`forge-level-${i}`, lvl > 0 ? romanize(lvl) : '')
 
         var lock = []
 
-        if (lvl < f.max) {
+        if (!maxed) {
             for (let i = 0; i < f.cost[lvl].length; i++) {
                 var c = f.cost[lvl][i]
                 if (CURRENCIES[c[0]].amount.lt(c[1])) lock.push(i)
@@ -313,10 +313,11 @@ function updateForgeHTML() {
 
         locks[i] = lock
 
-        forge_el.className = el_classes({bought: lvl >= f.max, 'forge-btn': true, 'notify': player.humanoid.forge.queue != i && lvl < f.max && tmp.forge_affords[i]})
+        setClass(`forge-div-${i}`, el_classes({bought: maxed, 'forge-btn': true, 'notify': player.humanoid.forge.queue != i && !maxed && tmp.forge_affords[i]}))
+        setAttr(`forge-div-${i}`, 'aria-label', lang_text('forge-slot-label', lang_forge[i][0], lvl, maxed, lock.length == 0))
     }
 
-    el('forge-description-div').style.display = el_display(forge_tab != '')
+    setDisplay('forge-description-div', forge_tab != '')
 
     if (forge_tab != '') {
         var f = FORGE[forge_tab], lf = lang_forge[forge_tab], lvl = player.humanoid.forge.level[forge_tab], maxed = lvl >= f.max
@@ -327,9 +328,7 @@ function updateForgeHTML() {
 
         if (f.effDesc) h += `<p><b>${lang_text('effect')}:</b> ${f.effDesc(tmp.forge_effect[forge_tab]) + (maxed ? "" : " ➜ " + f.effDesc(f.effect(lvl+1)))}</p>`
 
-        var el_btn = el('forge-btn')
-
-        el_btn.style.display = el_display(!maxed)
+        setDisplay('forge-btn', !maxed)
 
         if (!maxed) {
             var cost = f.cost[lvl], lock = locks[forge_tab] ?? []
@@ -339,11 +338,11 @@ function updateForgeHTML() {
             </p>
             `
 
-            el_btn.innerHTML = lang_text('forge-button')[player.humanoid.forge.queue == "" ? tmp.forge_affords[forge_tab] ? 1 : 2 : 0]
-            el_btn.className = el_classes({locked: player.humanoid.forge.queue == "" && !tmp.forge_affords[forge_tab], 'big-btn': true})
+            setHTML('forge-btn', lang_text('forge-button')[player.humanoid.forge.queue == "" ? tmp.forge_affords[forge_tab] ? 1 : 2 : 0])
+            setClass('forge-btn', el_classes({locked: player.humanoid.forge.queue == "" && !tmp.forge_affords[forge_tab], 'big-btn': true}))
         }
 
-        el('forge-description').innerHTML = h
+        setHTML('forge-description', h)
     }
 }
 

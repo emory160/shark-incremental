@@ -4,7 +4,7 @@ function el_classes(data) { return Object.keys(data).filter(x => data[x]).join("
 // Per-tick DOM writes (innerHTML/textContent/style/className) are what actually costs CPU via
 // reflow, not the surrounding JS. These caches let hot render paths skip the write entirely
 // when the value they'd set is identical to last time.
-const RENDER_CACHE = { text: new Map(), html: new Map(), display: new Map(), cls: new Map(), style: new Map() }
+const RENDER_CACHE = { text: new Map(), html: new Map(), display: new Map(), cls: new Map(), style: new Map(), attr: new Map() }
 
 function setText(id, value) {
     if (RENDER_CACHE.text.get(id) === value) return
@@ -31,6 +31,12 @@ function setStyle(id, prop, value) {
     if (RENDER_CACHE.style.get(key) === value) return
     RENDER_CACHE.style.set(key, value)
     el(id).style[prop] = value
+}
+function setAttr(id, name, value) {
+    let key = id + '.' + name
+    if (RENDER_CACHE.attr.get(key) === value) return
+    RENDER_CACHE.attr.set(key, value)
+    el(id).setAttribute(name, value)
 }
 
 function updateHTML() {

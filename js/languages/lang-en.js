@@ -635,6 +635,7 @@ LANGUAGES.EN = {
         // Evolution Tree
 
         'evolution-tree-row': (r,a) => `<b>Row ${r}</b><br>${a} available`,
+        'evolution-tree-status': (bought,charged,locked) => bought ? (charged ? "Purchased, Charged" : "Purchased") : locked ? "Locked" : "Available",
         'evolution-tree-ctn': [
             ["Fish Body", x=>`${toTextStyle('Fish','fish')} boosts ${toTextStyle('Shark','shark')} ELO by <b>${formatMult(x)}</b>.`, x=>`${toTextStyle('Fish','fish')} boosts ${toTextStyle('Shark','shark')} ELO's exponent by <b>${formatMult(x)}</b>.`],
             ["Prestigious Body", x=>`${toTextStyle('Prestige','prestige')} shards boost ${toTextStyle('Shark','shark')} ELO by <b>${formatMult(x)}</b>.`, x=>`${toTextStyle('Prestige','prestige')} shards boost ${toTextStyle('Shark','shark')} ELO's exponent by <b>${formatMult(x)}</b>.`],
@@ -794,6 +795,7 @@ LANGUAGES.EN = {
         'forge-progress': (x,s) => x ? `Forging <b>${x}</b>... <b>${s}</b>` : `Forge is empty`,
         'forge-speed': x => `Forging Speed: <b>${x}</b>`,
         'forge-button': ['Cancel Forging','Start Forging','Not enough materials to forge'],
+        'forge-slot-label': (name,lvl,maxed,affordable) => `${name}${lvl > 0 ? ", "+lang_text('level')+" "+romanize(lvl) : ""}${maxed ? ", "+lang_text('maxed') : affordable ? ", Affordable" : ""}`,
 
         // Particle Accelerator
 
