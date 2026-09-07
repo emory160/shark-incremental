@@ -133,18 +133,6 @@
                 </div>
             </div>
         </div><div id="research-tab">
-            <div class="table-center" style="align-items: center;">
-                <div id="radio-max-research-amt" class="input-radio"></div>
-                <div style="margin: 10px; align-items: center;" class="table-center" id="research-page-div">
-                    <button style="height: 40px; width: 40px;" onclick="changeResearchPage(-1)">◀</button>
-                    <div>
-                        <input type="number" value="1" min="1" step="1" id="research-page" class="no-arrows">
-                        <div id="research-total-pages"></div>
-                    </div>
-                    <button style="height: 40px; width: 40px;" onclick="changeResearchPage(1)">▶</button>
-                </div>
-                <div id="radio-visible-research" class="input-radio"></div>
-            </div>
             <button class="half-huge-btn" id="research-all-btn" onclick="purchaseAllResearch()"></button>
             <div id="research-table">
                 <div class="research-div">
@@ -157,6 +145,19 @@
                     </div>
                     <button class="research-button">Purchase</button>
                 </div>
+            </div>
+        </div><div id="research-options-tab">
+            <div class="table-center" style="align-items: center;">
+                <div id="radio-max-research-amt" class="input-radio"></div>
+                <div style="margin: 10px; align-items: center;" class="table-center" id="research-page-div">
+                    <button style="height: 40px; width: 40px;" onclick="changeResearchPage(-1)">◀</button>
+                    <div>
+                        <input type="number" value="1" min="1" step="1" id="research-page" class="no-arrows">
+                        <div id="research-total-pages"></div>
+                    </div>
+                    <button style="height: 40px; width: 40px;" onclick="changeResearchPage(1)">▶</button>
+                </div>
+                <div id="radio-visible-research" class="input-radio"></div>
             </div>
         </div><div id="explore-tab">
             <div id="next-explore"></div>

@@ -13,7 +13,7 @@ function loadGame(start=true, gotNaN=false) {
 
         el("research-page").onchange = function () {
             this.value = research_page = Math.max(1,Math.round(this.value))
-            updateResearchHTML()
+            updateResearchOptionsHTML()
         }
 
         setupCurrencies()

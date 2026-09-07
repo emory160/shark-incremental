@@ -1111,15 +1111,17 @@ function purchaseAllResearch() {
 function changeResearchPage(diff) {
     research_page = Math.max(1,research_page+diff)
     el("research-page").value = research_page
-    updateResearchHTML()
+    updateResearchOptionsHTML()
 }
 
-function updateResearchHTML() {
-    let text = [lang_text('effect'),lang_text('level'),lang_text('require'),lang_text('all-research')]
-
+function getVisibleResearch() {
     var hidden = player.radios['visible-research']
-    var visible_research = (hidden ? RESEARCH_KEYS.filter(x => !isResearchMaxed(x)) : RESEARCH_KEYS).filter(x => RESEARCH[x].unl())
+    return (hidden ? RESEARCH_KEYS.filter(x => !isResearchMaxed(x)) : RESEARCH_KEYS).filter(x => RESEARCH[x].unl())
+}
 
+// Also updates the pagination controls (now on the research-options subtab), and returns
+// the slice of visible_research that belongs on the current page.
+function paginateResearch(visible_research) {
     var m = MAX_RESEARCH[player.radios['max-research-amt']]
     var unl = player.radios['max-research-amt'] != 0 && visible_research.length > m
     setDisplay("research-page-div", unl)
@@ -1134,6 +1136,17 @@ function updateResearchHTML() {
 
         visible_research = [...visible_research].splice(m*(research_page-1),m)
     }
+    return visible_research
+}
+
+function updateResearchOptionsHTML() {
+    paginateResearch(getVisibleResearch())
+}
+
+function updateResearchHTML() {
+    let text = [lang_text('effect'),lang_text('level'),lang_text('require'),lang_text('all-research')]
+
+    var visible_research = paginateResearch(getVisibleResearch())
 
     for (let [i,x] of Object.entries(RESEARCH)) {
         let unl = visible_research.includes(i) && x.unl(), el_id = "research-"+i
