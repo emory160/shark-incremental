@@ -8,6 +8,7 @@ function loadGame(start=true, gotNaN=false) {
         setupLanguage()
 
         setupOptions()
+        applyAnimationsSetting()
 
         createCanvasGraph("offline",{axis_name: ["Time","Fish"], color: "orange"})
 
@@ -62,6 +63,10 @@ function setupOptions() {
     })
     createRadio(...getLangRadio('notify'), {
         start_position: 1,
+    })
+    createRadio(...getLangRadio('animations'), {
+        start_position: 0,
+        width: 110,
     })
 
     createRadio(...getLangRadio('max-research-amt'), {
