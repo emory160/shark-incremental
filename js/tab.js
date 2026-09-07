@@ -62,6 +62,9 @@ const TAB_IDS = {
             return false
         },
     },
+    'research-options': {
+        html: updateResearchOptionsHTML,
+    },
     'explore': {
         html: updateExplorationHTML,
 
@@ -346,8 +349,12 @@ const TABS = [
         unl: ()=>!player.omni.god && (player.rebirth.first || player.feature>=2 || player.singularity.best_bh.gte(2)),
         stab: "auto",
     },{
+        id: 'research',
         unl: ()=>!player.omni.god && (!player.omni.active && player.feature>=3 || player.omni.tier.gte(12)),
-        stab: "research",
+        stab: [
+            ["research"],
+            ["research-options"],
+        ],
     },{ // 5
         unl: ()=>!player.omni.active && !tmp.ss_difficulty && player.feature>=4,
         stab: "explore",

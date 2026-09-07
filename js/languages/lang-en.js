@@ -88,6 +88,7 @@ LANGUAGES.EN = {
         'tab-scalings': "Scalings",
         'tab-auto': "Automation",
         'tab-research': toTextStyle('Research','prestige'),
+        'tab-research-options': "Display Options",
         'tab-explore': "Exploration",
         'tab-space-base': toTextStyle('Space Base','observ'),
 

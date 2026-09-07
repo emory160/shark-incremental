@@ -71,7 +71,8 @@ function setupCoreAssemblerHTML() {
             100%
         </button>`
         **/
-        h += `<button class='ca-grid-btn' id="ca-grid-${x}-div" onclick="placeCABuildling(${x})"></button>`
+        let label = String.fromCharCode(65 + Math.floor(x/4)) + (x%4+1)
+        h += `<button class='ca-grid-btn' id="ca-grid-${x}-div" aria-label="${label}" onclick="placeCABuildling(${x})"></button>`
     }
 
     el("core-assembler-grid").innerHTML = h, h = ''
