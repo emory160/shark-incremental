@@ -11,6 +11,7 @@ function activeOmni() {
 
         el('omni-cutscene').style.pointerEvents = 'all'
         el('omni-cutscene').style.opacity = 1
+        el('omni-cutscene').setAttribute('aria-hidden','false')
         el('app').style.display = "none"
 
         setTimeout(() => {
@@ -27,6 +28,7 @@ function activeOmni() {
                         setTimeout(() => {
 
                             el('omni-cutscene').style.opacity = 0
+                            el('omni-cutscene').setAttribute('aria-hidden','true')
                             el('app').style.display = "block"
 
                             tmp.omni.pause = false

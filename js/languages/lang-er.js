@@ -12,7 +12,7 @@ LANGUAGES.ER = {
         'fish-costName': toTextStyle('Fish','fish'),
 
         'prestige-name': "Prestige Shards",
-        'prestige-costName': toTextStyle('Prestige','prestige') + " Shards",
+        'prestige-costName': toTextStyle('Prestige Shards','prestige'),
 
         'coral-name': "Corals",
         'coral-costName': toTextStyle('Corals','coral'),
@@ -30,7 +30,7 @@ LANGUAGES.ER = {
         'kelp-costName': toTextStyle('Kelp','kelp'),
 
         'core-name': "Magmatic Fragments",
-        'core-costName': toTextStyle('Magmatic','core') + ' Fragments',
+        'core-costName': toTextStyle('Magmatic Fragments','core'),
 
         'curr-top-0-req': x => `Reach <b>${format(x)}</b> total ${toTextStyle('Fish','fish')}`, 
         'curr-top-0-reset': x => `Prestige for <b>${x.format(0)}</b> ${toTextStyle('Prestige','prestige')} Shards`,
@@ -53,7 +53,7 @@ LANGUAGES.ER = {
         
         // Elements
 
-        'fish-div': `Your ${toTextStyle('Shark','shark')} has eaten <h2>${toTextStyle('0','fish','fish-amount')}</h2> <span id="fish-gain"></span> fish.`,
+        'fish-div': `${toTextStyle('Your Shark has eaten','shark')} <h2>${toTextStyle('0','fish','fish-amount')}</h2> <span id="fish-gain"></span> fish.`,
         'shark-stats': `${toTextStyle('Shark','shark')} Stats<br>Level: <h4 id="shark-level">???</h4><br>Rank: <h4 id="shark-tier">???</h4>`,
 
         'option-title-1': "Main Options",
@@ -357,6 +357,7 @@ LANGUAGES.ER = {
             'autosave': ['Autosaving',['Disabled','Enabled']],
             'autosave-time': ['Autosave Interval',['15s','30s','60s','120s']],
             'offline': ['Offline Progress',['Disabled','Enabled']],
+            'animations': ['Game Animations',['On','Reduced Motion','Off']],
         },
 
         'radio-desc-default' : ['Disabled','Enabled'],
