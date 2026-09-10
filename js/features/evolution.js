@@ -355,12 +355,12 @@ function hasEvolutionGoal(i) { return player.humanoid.goal.includes(i) }
 function updateEvolutionGoalHTML() {
     var lang_texts = lang_text("evolution-goal-ctn")
     for (let i = 0; i < EVOLUTION_GOAL.length; i++) {
-        var el_ctn = el("evolution-goal-"+i), ctn = EVOLUTION_GOAL[i], lang = lang_texts[i]
+        var id = "evolution-goal-"+i, ctn = EVOLUTION_GOAL[i], lang = lang_texts[i]
 
         var goal = hasEvolutionGoal(i), locked = ctn.locked()
 
-        el_ctn.className = el_classes({locked: !goal && locked, bought: goal, 'evolution-goal-ctn': true})
-        el_ctn.innerHTML = `<b>[${lang_text("evolution-goal-status",goal,locked)}]</b><br>${lang[0](ctn.values)}<br><b>${lang_text("reward")}:</b> ${lang[1]}`
+        setClass(id, el_classes({locked: !goal && locked, bought: goal, 'evolution-goal-ctn': true}))
+        setHTML(id, `<b>[${lang_text("evolution-goal-status",goal,locked)}]</b><br>${lang[0](ctn.values)}<br><b>${lang_text("reward")}:</b> ${lang[1]}`)
     }
 }
 
