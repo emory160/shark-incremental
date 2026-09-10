@@ -46,6 +46,10 @@ const CORE_ASSEMBLER = [
 
 var ca_builder = -1
 
+function caGridCoord(x) {
+    return String.fromCharCode(65 + Math.floor(x/4)) + (x%4+1)
+}
+
 function moveCADirection(before,d) {
     switch (d) {
         case 0:
@@ -71,8 +75,7 @@ function setupCoreAssemblerHTML() {
             100%
         </button>`
         **/
-        let label = String.fromCharCode(65 + Math.floor(x/4)) + (x%4+1)
-        h += `<button class='ca-grid-btn' id="ca-grid-${x}-div" aria-label="${label}" onclick="placeCABuildling(${x})"></button>`
+        h += `<button class='ca-grid-btn' id="ca-grid-${x}-div" onclick="placeCABuildling(${x})"></button>`
     }
 
     el("core-assembler-grid").innerHTML = h, h = ''
@@ -153,8 +156,10 @@ function updateCoreAssemblerHTML() {
             b_el.style.setProperty("--color2", a.color[1])
 
             b_el.innerHTML = `<div>${r.symbol}</div>`+formatPercent(tmp.cab_strengths[x],0)
+            b_el.setAttribute('aria-label', lang_text('ca-grid-label', caGridCoord(x), lang_text(`core-${b}-name`)))
         } else {
             b_el.innerHTML = ""
+            b_el.setAttribute('aria-label', lang_text('ca-grid-label', caGridCoord(x), lang_text('ca-grid-empty')))
         }
     }
 
