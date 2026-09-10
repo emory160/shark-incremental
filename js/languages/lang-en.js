@@ -604,6 +604,8 @@ LANGUAGES.EN = {
         'core-assembler-building-limit': (m,x,mm) => `Max buildings: ${mm} / ${m}<br>Require: ${format(x)} ${toTextStyle("Magmatic",'core')} fragments`, 
         'ca-building-base': b => `[Base: ${b}]`,
         'ca-building-temp': t => `Increase the core's temperature by ${t}.`,
+        'ca-grid-empty': `Empty`,
+        'ca-grid-label': (coord,name) => `${coord}: ${name}`,
 
         // Core Radiation
 
