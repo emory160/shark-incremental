@@ -271,6 +271,10 @@ function setupCultivationHTML() {
     }
 
     el("ores-grid").innerHTML = h
+
+    h = ""
+    ORE_KEYS.forEach(x => h += `<div class="ore-list" id="ore-list-${x}"></div>`)
+    el("ores-list").innerHTML = h
 }
 
 function updateCultivationHTML() {
@@ -315,14 +319,12 @@ function updateCultivationHTML() {
         setHTML("super-mining-fortune", tmp.super_mining_fortune.format(0))
     }
 
-    var r = ""
-
     ORE_KEYS.forEach(x => {
-        var c = CURRENCIES[x], amt = c.amount
-        if (amt.gt(0)) r += `<div class='ore-list'>${c.costName+" ×"+amt.format(0)+(c.passive>0?" "+amt.formatGain(tmp.currency_gain[x]):"")}</div>`
-    })
+        var c = CURRENCIES[x], amt = c.amount, show = amt.gt(0)
 
-    setHTML('ores-list', r)
+        setDisplay(`ore-list-${x}`, show)
+        if (show) setHTML(`ore-list-${x}`, c.costName+" ×"+amt.format(0)+(c.passive>0?" "+amt.formatGain(tmp.currency_gain[x]):""))
+    })
 
     var tier = player.humanoid.mining_tier
 
