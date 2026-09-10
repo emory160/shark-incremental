@@ -386,20 +386,20 @@ function setupAutomationHTML() {
 function updateAutomationHTML() {
     for (let [i,x] of Object.entries(AUTOMATION)) {
         let unl = x.unl()
-        el(`auto-${i}-div`).style.display = el_display(unl)
+        setDisplay(`auto-${i}-div`, unl)
         if (unl) {
             let a = player.auto[i], maxed = a[0]>=x.max
             let [I,D] = x.interval
-            el(`auto-${i}-interval`).textContent = lang_text('auto-interval',Math.max(I*D**a[0],AUTO_MIN_INTERVAL),Math.max(I*D**(a[0]+1),AUTO_MIN_INTERVAL),maxed) // `Interval: ${format(Math.max(I*D**a[0],AUTO_MIN_INTERVAL),3)}s`+(maxed ? "" :` ➜ ${format(Math.max(I*D**(a[0]+1),AUTO_MIN_INTERVAL),3)}s`)
-            
-            el(`auto-${i}-switch`).textContent = lang_text('off-on',a[1])
+            setText(`auto-${i}-interval`, lang_text('auto-interval',Math.max(I*D**a[0],AUTO_MIN_INTERVAL),Math.max(I*D**(a[0]+1),AUTO_MIN_INTERVAL),maxed))
 
-            el(`auto-${i}-cost`).style.display = el_display(!maxed)
+            setText(`auto-${i}-switch`, lang_text('off-on',a[1]))
+
+            setDisplay(`auto-${i}-cost`, !maxed)
             if (!maxed) {
                 let res = CURRENCIES[x.curr], cost = x.cost(a[0])
 
-                el(`auto-${i}-cost`).innerHTML = lang_text('auto-cost',D,cost,res.costName) // `Decrease Interval by ${formatReduction(D,0)}.<br>Cost: ${format(cost,0)} ${res.costName}`
-                el(`auto-${i}-cost`).className = el_classes({'auto-button': true, locked: res.amount.lt(cost)})
+                setHTML(`auto-${i}-cost`, lang_text('auto-cost',D,cost,res.costName))
+                setClass(`auto-${i}-cost`, el_classes({'auto-button': true, locked: res.amount.lt(cost)}))
             }
         }
     }
