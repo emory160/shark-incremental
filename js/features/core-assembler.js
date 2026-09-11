@@ -119,7 +119,7 @@ function placeCABuildling(i,b=ca_builder) {
 
 function updateCoreAssemblerHTML() {
     var req = CA_MAX_BUILDINGS_COST[player.core.max_buildings]??EINF
-    el('ca-building-limit').innerHTML = lang_text('core-assembler-building-limit',player.core.max_buildings,req,tmp.totalCABuildings)
+    setHTML('ca-building-limit', lang_text('core-assembler-building-limit',player.core.max_buildings,req,tmp.totalCABuildings))
     el('ca-building-limit').className = el_classes({locked: CURRENCIES.core.amount.lt(req), 'huge-btn': true})
 
     var icons = [icon("up-arrow"), icon("down-arrow")]
@@ -132,17 +132,17 @@ function updateCoreAssemblerHTML() {
 
         // el(`ca-building-${i}-div`).className = el_classes({'ca-building': true, locked: tmp.placedACBuildings[i]>=1 || tmp.totalCABuildings>=player.core.max_buildings})
 
-        el(`ca-building-${i}-desc`).innerHTML = lang_text('core-assembler-building-stats',compareStyle(formatPercent(s,0),s,ss),tmp.placedACBuildings[i],tmp.maxCABuildingEach) + "<br>"
+        setHTML(`ca-building-${i}-desc`, lang_text('core-assembler-building-stats',compareStyle(formatPercent(s,0),s,ss),tmp.placedACBuildings[i],tmp.maxCABuildingEach) + "<br>"
         + lang_text(`ca-building-base`,a.res_text) + "<br>"
-        + lang_text(`ca-building-temp`,compareStyle(format(a.temperature(s))+"°K",s,ss)) // + " " + lang_text(`core-${i}-assemble`)
+        + lang_text(`ca-building-temp`,compareStyle(format(a.temperature(s))+"°K",s,ss))) // + " " + lang_text(`core-${i}-assemble`)
 
         total_temp = total_temp.add(a.temperature(s))
     }
 
     if (ca_builder >= 0) {
         var a = CORE_ASSEMBLER[ca_builder]
-        el('core-assembler-choose-div').innerHTML = "<div>"+lang_text('core-assembler-choose')+": "+lang_text(`core-${ca_builder}-name`).bold()+`</div><div class="ca-building-symbol" style="--color1: ${a.color[0]}; --color2: ${a.color[1]};"></div>`
-    } else el('core-assembler-choose-div').innerHTML = lang_text('core-assembler-erase')
+        setHTML('core-assembler-choose-div', "<div>"+lang_text('core-assembler-choose')+": "+lang_text(`core-${ca_builder}-name`).bold()+`</div><div class="ca-building-symbol" style="--color1: ${a.color[0]}; --color2: ${a.color[1]};"></div>`)
+    } else setHTML('core-assembler-choose-div', lang_text('core-assembler-erase'))
 
     for (let x = 0; x < 16; x++) {
         var b = player.core.assembler[x], b_el = el(`ca-grid-${x}-div`)
@@ -155,15 +155,15 @@ function updateCoreAssemblerHTML() {
             b_el.style.setProperty("--color1", a.color[0])
             b_el.style.setProperty("--color2", a.color[1])
 
-            b_el.innerHTML = `<div>${r.symbol}</div>`+formatPercent(tmp.cab_strengths[x],0)
+            setHTML(`ca-grid-${x}-div`, `<div>${r.symbol}</div>`+formatPercent(tmp.cab_strengths[x],0))
             b_el.setAttribute('aria-label', lang_text('ca-grid-label', caGridCoord(x), lang_text(`core-${b}-name`)))
         } else {
-            b_el.innerHTML = ""
+            setHTML(`ca-grid-${x}-div`, "")
             b_el.setAttribute('aria-label', lang_text('ca-grid-label', caGridCoord(x), lang_text('ca-grid-empty')))
         }
     }
 
-    el("core-temp-after").innerHTML = compareStyle(format(total_temp)+"°K",total_temp,getCoreTemperature())
+    setHTML("core-temp-after", compareStyle(format(total_temp)+"°K",total_temp,getCoreTemperature()))
 }
 
 function updateCoreAssemblerTemp() {

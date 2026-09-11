@@ -164,8 +164,8 @@ const ISOTOPES = {
             el(id+'-down').className = el(id+'-down2').className = el_classes({locked: player.omni.isotopes[i].lte(0)})
         }
 
-        el('isotopes-amount').innerHTML = format(unspent,0) + " / " + format(player.omni.total_isotopes,0);
-        el('isotopes-next').innerHTML = format(this.cost);
+        setText('isotopes-amount', format(unspent,0) + " / " + format(player.omni.total_isotopes,0));
+        setText('isotopes-next', format(this.cost));
     },
 
     increment(i) {

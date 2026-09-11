@@ -63,16 +63,16 @@ function updateDNATemp() {
 }
 
 function updateDNAHTML() {
-    el('dna-length').innerHTML = player.hadron.dna.format(3)
-    el('dna-length-gain').innerHTML = hasDNAMilestone(8) ? "+"+DNA.length.sub(player.hadron.dna).max(0).mul(FPS).format(3)+"/s" : "+"+DNA.length.sub(player.hadron.dna).max(0).format(3)
+    setText('dna-length', player.hadron.dna.format(3))
+    setText('dna-length-gain', hasDNAMilestone(8) ? "+"+DNA.length.sub(player.hadron.dna).max(0).mul(FPS).format(3)+"/s" : "+"+DNA.length.sub(player.hadron.dna).max(0).format(3))
 
-    el('dna-boost1').innerHTML = tmp.dna_boosts.fish.format(4)
-    el('dna-boost2').innerHTML = formatPercent(tmp.dna_boosts.nucleobases.sub(1))
+    setText('dna-boost1', tmp.dna_boosts.fish.format(4))
+    setText('dna-boost2', formatPercent(tmp.dna_boosts.nucleobases.sub(1)))
 
     for (let i in DNA.milestones) {
         // el('dna-milestone-'+i).style.display = player.hadron.dna.gte(DNA.milestones[i]) ? 'table-row' : 'none'
         el('dna-milestone-'+i).className = el_classes({'completed': player.hadron.dna.gte(DNA.milestones[i])})
-        el('dna-milestone-'+i+'-length').innerHTML = format(DNA.milestones[i],0) + "nm"
+        setText('dna-milestone-'+i+'-length', format(DNA.milestones[i],0) + "nm")
     }
 }
 

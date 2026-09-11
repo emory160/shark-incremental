@@ -173,7 +173,7 @@ const REBIRTH = {
 
     html: {
         upgrades() {
-            el('rebirth-amount').innerHTML = `${format(player.rebirth.points,0)} / ${format(player.rebirth.total,0)}`
+            setText('rebirth-amount', `${format(player.rebirth.points,0)} / ${format(player.rebirth.total,0)}`)
             el('global-mult').textContent = formatMult(tmp.global_mult)
 
             for (let i = 0; i < REBIRTH.upgrades.length; i++) {

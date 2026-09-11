@@ -40,7 +40,7 @@ function updateStarterUpgradesHTML() {
         let el_id = `starter-upgrade-${i}`
 
         el(el_id + '-div').className = el_classes(player.hadron.starter_upgs.includes(i) ? {bought: true} : {locked: player.hadron.amount.lt(cost)})
-        el(el_id + '-cost').innerHTML = player.hadron.starter_upgs.includes(i) ? `<b>${text[1]}</b>` : `<b>${text[0]}:</b> ${format(cost,0)} ${CURRENCIES.hadron.costName}`
+        setHTML(el_id + '-cost', player.hadron.starter_upgs.includes(i) ? `<b>${text[1]}</b>` : `<b>${text[0]}:</b> ${format(cost,0)} ${CURRENCIES.hadron.costName}`)
     }
 }
 
@@ -259,7 +259,7 @@ function updateNucleobasesHTML() {
             for (let s = 0; s < 2; s++) {
                 let si = ['base','tier'][s], l = data.upg[s], cost = NUCLEOBASES.get_cost(id,si,l)
 
-                el(el_id + '-upgrade-' + si).innerHTML = `${text[si]}: ${toColoredText(si == 'base' ? '+' + format(n_tmp.base_mult) : format(l,0),'lime')}<br>${text.cost}: ${format(cost,0)} ${si == 'base' ? CURRENCIES[n.base.currency].costName : CURRENCIES.hadron.costName}`
+                setHTML(el_id + '-upgrade-' + si, `${text[si]}: ${toColoredText(si == 'base' ? '+' + format(n_tmp.base_mult) : format(l,0),'lime')}<br>${text.cost}: ${format(cost,0)} ${si == 'base' ? CURRENCIES[n.base.currency].costName : CURRENCIES.hadron.costName}`)
 
                 el(el_id + '-upgrade-' + si).className = el_classes({'explore-cost': true, locked: (si == 'base' ? CURRENCIES[n.base.currency].amount : player.hadron.amount).lt(cost)})
             }
@@ -267,7 +267,7 @@ function updateNucleobasesHTML() {
             for (let i = 0; i < n.effect.length; i++) {
                 let e = n.effect[i]
 
-                el(el_id + '-boost-' + i).innerHTML = amt.gte(e[0]) ? text.nucleobases[id][1][i](toColoredText(e[3](n_tmp.effect[i]),'lime')) : `[${text.require}: <b>${format(e[0],0)}</b>]`
+                setHTML(el_id + '-boost-' + i, amt.gte(e[0]) ? text.nucleobases[id][1][i](toColoredText(e[3](n_tmp.effect[i]),'lime')) : `[${text.require}: <b>${format(e[0],0)}</b>]`)
             }
         }
     }

@@ -156,7 +156,7 @@ function updateGalacticExploreHTML() {
 
             el(el_id + '-score').textContent = format(score)
             el(el_id + '-res').textContent = format(ge.res[i],0) + " " + formatGain(ge.res[i],tmp.currency_gain['gal-explore-'+i])
-            el(el_id + '-effect').innerHTML = ge_text[3](toColoredText(GE.effDesc(tmp.gal_explore_eff[i]), 'lime'))
+            setHTML(el_id + '-effect', ge_text[3](toColoredText(GE.effDesc(tmp.gal_explore_eff[i]), 'lime')))
 
             let h = ""
 
@@ -165,11 +165,11 @@ function updateGalacticExploreHTML() {
                 h = lang_text('gal-explore-inside',compareStyle(format(cur_score),cur_score,score),format(GE.fish_req))
             } else h = text[1];
 
-            el(el_id + '-enter').innerHTML = h
+            setHTML(el_id + '-enter', h)
 
             let cost = GE.upgrade[0](ge.upg[i]), curr = CURRENCIES[GE.upgrade[2]]
 
-            el(el_id + '-upg').innerHTML = lang_text('gal-explore-upgrade',CURRENCIES['gal-explore-'+i].costName,toColoredText(formatMult(tmp.gal_explore_mult[i]),'lime'))+"<br>"+text[2]+": "+format(cost)+" "+curr.costName
+            setHTML(el_id + '-upg', lang_text('gal-explore-upgrade',CURRENCIES['gal-explore-'+i].costName,toColoredText(formatMult(tmp.gal_explore_mult[i]),'lime'))+"<br>"+text[2]+": "+format(cost)+" "+curr.costName)
             el(el_id + '-upg').className = el_classes({'explore-cost':true,'locked':curr.amount.lt(cost)})
         }
     }

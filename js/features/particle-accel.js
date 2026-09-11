@@ -163,14 +163,14 @@ function updatePAHtml() {
     
             if (!unl) continue
     
-            el(`particle-accel-${i}-button`).innerHTML = lang_text('particle-accel-condense',curr.costName) + " " + text[0][i](PA.effDesc(tmp.particle_accel_eff[i]))
+            setHTML(`particle-accel-${i}-button`, lang_text('particle-accel-condense',curr.costName) + " " + text[0][i](PA.effDesc(tmp.particle_accel_eff[i])))
             el(`particle-accel-${i}-button`).className = el_classes({ active : player.humanoid.particle_accel.active == i, 'particle-accel-button' : true })
     
             let proj = PA.percent(curr.amount).max(0).min(1), per = player.humanoid.particle_accel.percent[i].max(0).min(1)
     
             el(`pab-${i}-proj`).style.width = proj.toNumber() * 100 + "%"
             el(`pab-${i}-inner`).style.width = per.toNumber() * 100 + "%"
-            el(`pab-${i}-outer`).innerHTML = formatPercent(per) + (proj.sub(per).gt(1e-4) ? " (+" + formatPercent(proj.sub(per)) + ")" : "")
+            setText(`pab-${i}-outer`, formatPercent(per) + (proj.sub(per).gt(1e-4) ? " (+" + formatPercent(proj.sub(per)) + ")" : ""))
         }
     }
 }

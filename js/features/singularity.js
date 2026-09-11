@@ -294,11 +294,11 @@ function updateSingularityTemp() {
 function updateBlackHoleHTML() {
     let remnants = player.singularity.remnants, texts = [lang_text('remnant-upgrades')]
 
-    el('black-hole-amount').innerHTML = format(player.singularity.bh,0) + " / 8"
-    el('black-hole-effect').innerHTML = formatPow(tmp.bh_reduction,4)
+    setText('black-hole-amount', format(player.singularity.bh,0) + " / 8")
+    setText('black-hole-effect', formatPow(tmp.bh_reduction,4))
 
-    el('remnant-amount').innerHTML = format(remnants,0)
-    el('remnant-gain').innerHTML = formatGain(remnants,tmp.currency_gain.remnants)
+    setText('remnant-amount', format(remnants,0))
+    setText('remnant-gain', formatGain(remnants,tmp.currency_gain.remnants))
 
     for (let i = 0; i < REMNANT_UPGS.length; i++) {
         let u = REMNANT_UPGS[i], id = `remnant-upg-${i}-`, e = el(id+'button'), unl = u.unl()
@@ -309,7 +309,7 @@ function updateBlackHoleHTML() {
             let lvl = player.singularity.upgs[i]
 
             el(id+'level').textContent = format(lvl,0)
-            el(id+'desc').innerHTML = texts[0][i][1](toColoredText(u.effDesc(tmp.remnant_upg_effects[i]),'lime'))
+            setHTML(id+'desc', texts[0][i][1](toColoredText(u.effDesc(tmp.remnant_upg_effects[i]),'lime')))
 
             let cost = getRemnantUpgradeCost(i,lvl)
 
@@ -355,7 +355,7 @@ function updateSingularityMilestones() {
         if (unl) {
             let t = text[i]
 
-            e.innerHTML = `<h3>${t[0]}</h3><br>${t[1]}`
+            setHTML(`sm-${i}`, `<h3>${t[0]}</h3><br>${t[1]}`)
             e.style.borderColor = s.req() ? "lime" : "white"
         }
     }

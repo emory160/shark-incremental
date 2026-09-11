@@ -379,7 +379,7 @@ function updateScalingsTable() {
                         }
                     }
 
-                    e.innerHTML = h
+                    setHTML("scaling-" + i + "-" + j, h)
                 }
             }
         }

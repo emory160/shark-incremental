@@ -366,7 +366,7 @@ const OMNI = {
 
     godHTML() {
         const cost = player.omni.god ? this.godRequire2 : this.godRequire
-        el('god-button').innerHTML = `${lang_text('overmodify-shark')}<br><br><b>${lang_text('require')}:</b> ${format(cost,0)} ${player.omni.god ? CURRENCIES['omni-fish'].costName : CURRENCIES.fish.costName}`
+        setHTML('god-button', `${lang_text('overmodify-shark')}<br><br><b>${lang_text('require')}:</b> ${format(cost,0)} ${player.omni.god ? CURRENCIES['omni-fish'].costName : CURRENCIES.fish.costName}`)
         el('god-button').className = el_classes({omni: true, 'huge-btn': true, locked: player.fish.lt(cost)})
     },
 
@@ -839,7 +839,7 @@ function updateOmniRewardsHTML() {
         el(`omni-reward-${t}-div`).style.display = el_display(player.omni.tier.gte(t))
 
         const R = OMNI.rewards[t]
-        el(`omni-reward-${t}-desc`).innerHTML = rewards[t](R && R[2] ? toColoredText(R[2](tmp.omni.rewards[t]), 'lime') : "")
+        setHTML(`omni-reward-${t}-desc`, rewards[t](R && R[2] ? toColoredText(R[2](tmp.omni.rewards[t]), 'lime') : ""))
     }
 }
 
@@ -851,7 +851,7 @@ function updateSharkCondensersHTML() {
         let unl = O[0]()
         el(`omni-condenser-${i}-div`).style.display = el_display(unl)
         if (unl) {
-            el(`omni-condenser-${i}-boost`).innerHTML = `${condensers[i](toColoredText(O[3](tmp.omni.condensers[i]), 'lime'))}<br><span class='small-text'>${lang_text("condensed",format(player.omni.condensed[i],0))}</span>`
+            setHTML(`omni-condenser-${i}-boost`, `${condensers[i](toColoredText(O[3](tmp.omni.condensers[i]), 'lime'))}<br><span class='small-text'>${lang_text("condensed",format(player.omni.condensed[i],0))}</span>`)
         }
     }
 }

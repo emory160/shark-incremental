@@ -248,8 +248,8 @@ function updateEvolutionTreeHTML() {
         setClass("shark-faith-cost-"+i, el_classes({locked: curr.amount.lt(cost), 'huge-btn': true}))
     }
 
-    setHTML("sharkoid-faith-spent", tmp.unspent_faith.format(0))
-    setHTML("sharkoid-faith-total", tmp.total_faith.format(0))
+    setText("sharkoid-faith-spent", tmp.unspent_faith.format(0))
+    setText("sharkoid-faith-total", tmp.total_faith.format(0))
 
     setDisplay('respec-evolution-tree-2', tf_unl)
 }

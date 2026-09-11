@@ -436,8 +436,8 @@ function updateDecaySeriesHTML() {
             'locked': getDecaySeriesCost(i, player.omni.decay_series[i][0]).gt(player.omni.nucleus),
         })
 
-        el('decay-chain-' + i + '-level').innerHTML = lang_text('level')+": "+format(player.omni.decay_series[i][0],0);
-        el('decay-chain-' + i + '-amount').innerHTML = format(player.omni.decay_series[i][1],0);
+        setText('decay-chain-' + i + '-level', lang_text('level')+": "+format(player.omni.decay_series[i][0],0));
+        setText('decay-chain-' + i + '-amount', format(player.omni.decay_series[i][1],0));
     }
 
     DS_ctx.stroke();
@@ -454,13 +454,13 @@ function updateDecaySeriesHTML() {
         const x = DECAY_CHAIN[choosedDecaySeries], C = player.omni.decay_series[choosedDecaySeries]
 
         el('decay-chain-title').textContent = TEXTS.elem[x.symbols[2]] + '-' + x.symbols[1];
-        el('decay-chain-amount').innerHTML = lang_text('amount')+": "+format(C[1],0)
-        +(tmp.omni.decay_nucleus_gain[choosedDecaySeries].gt(0) ? " " + formatGain(C[1],tmp.omni.decay_nucleus_gain[choosedDecaySeries]) : "");
-        el('decay-chain-level').innerHTML = lang_text('level')+": "+format(C[0],0);
+        setText('decay-chain-amount', lang_text('amount')+": "+format(C[1],0)
+        +(tmp.omni.decay_nucleus_gain[choosedDecaySeries].gt(0) ? " " + formatGain(C[1],tmp.omni.decay_nucleus_gain[choosedDecaySeries]) : ""));
+        setText('decay-chain-level', lang_text('level')+": "+format(C[0],0));
 
         var cost = getDecaySeriesCost(choosedDecaySeries, C[0])
 
-        el('decay-chain-cost').innerHTML = lang_text('cost')+": "+format(cost,0)+" "+CURRENCIES.nucleus.costName;
+        setText('decay-chain-cost', lang_text('cost')+": "+format(cost,0)+" "+CURRENCIES.nucleus.costName);
         el('decay-chain-cost').className = el_classes({
             'omni': true,
             'big-btn': true,
@@ -474,7 +474,7 @@ function updateDecaySeriesHTML() {
             h += `<li>${C[0].gte(y[0]) ? TEXTS.boosts[choosedDecaySeries][i](toColoredText(y[3](tmp.omni.decay_series_effects[choosedDecaySeries][i]),'lime')) : `[${TEXTS.require}: <b>${format(y[0],0)}</b>]`}</li>`
         }
 
-        el('decay-chain-boosts').innerHTML = h
+        setHTML('decay-chain-boosts', h)
     }
 }
 
@@ -486,9 +486,9 @@ function updateDecayParticlesHTML() {
 
         el(t+'-div').style.display = el_display(i < 2 || player.omni.fission)
 
-        el(t+'-amount').innerHTML = format(player.omni.particles[i],0);
-        el(t+'-gain').innerHTML = formatGain(player.omni.particles[i],tmp.omni.paticles_gain[i]);
+        setText(t+'-amount', format(player.omni.particles[i],0));
+        setText(t+'-gain', formatGain(player.omni.particles[i],tmp.omni.paticles_gain[i]));
 
-        el(t+'-effect').innerHTML = x[2](tmp.omni.particles_effect[i]);
+        setHTML(t+'-effect', x[2](tmp.omni.particles_effect[i]));
     })
 }

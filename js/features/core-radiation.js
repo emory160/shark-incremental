@@ -231,31 +231,31 @@ function getCoreTemperatureEffect() {
 function updateCoreRadiation() {
     var rad = player.core.radiation
 
-    el('radioactive-amount').innerHTML = rad.amount.format(0) + (rad.boost.gte(1e5) ? "" : " / " + tmp.cr_limit.format(0)) + " " + icon("radioactive")
-    el('radioactive-gain').innerHTML = tmp.cr_gain.gt(0) ? rad.amount.formatGain(tmp.cr_gain) : ""
+    setHTML('radioactive-amount', rad.amount.format(0) + (rad.boost.gte(1e5) ? "" : " / " + tmp.cr_limit.format(0)) + " " + icon("radioactive"))
+    setText('radioactive-gain', tmp.cr_gain.gt(0) ? rad.amount.formatGain(tmp.cr_gain) : "")
 
-    el('start-cr-experiment').innerHTML = lang_text('cr-start',rad.active)
+    setHTML('start-cr-experiment', lang_text('cr-start',rad.active))
 
     var r_c15 = hasResearch('c15'), active = tmp.cr_active
     var cost = CORE_RAD.genCost(rad.gen)
-    el('upgrade-cr-btn').innerHTML = lang_text('upgrade-cr',CORE_RAD.genValue(rad.gen),cost)
+    setHTML('upgrade-cr-btn', lang_text('upgrade-cr',CORE_RAD.genValue(rad.gen),cost))
     el('upgrade-cr-btn').className = el_classes({locked: !r_c15 && !active || CURRENCIES.fish.amount.pow(!active && r_c15 ? researchEffect('c15',0) : 1).lt(cost), 'huge-btn': true})
 
-    el('reset-cr-btn').innerHTML = lang_text('reset-cr',CORE_RAD.limitIncrease())
+    setHTML('reset-cr-btn', lang_text('reset-cr',CORE_RAD.limitIncrease()))
     el('reset-cr-btn').className = el_classes({locked: rad.amount.lt(tmp.cr_limit), 'huge-btn': true})
 
     let h = "", boosts_list = lang_text("cr-boosts"), boost = player.core.radiation.boost
 
     for (let i = 0; i < CORE_RAD.boosts.length; i++) if (boost.gte(CORE_RAD.boosts[i].req)) h += boosts_list[i](tmp.cr_boost[i])+`<br>`
 
-    el('cr-boosts-div').innerHTML = h
+    setHTML('cr-boosts-div', h)
 
-    el('radioactive-boost').innerHTML = format(player.core.radiation.boost,0)
+    setText('radioactive-boost', format(player.core.radiation.boost,0))
 
     el('core-temp-div').style.display = el_display(player.feature>=9)
     if (player.feature>=9) {
-        el('core-temperature').innerHTML = format(getCoreTemperature())+"°K"
-        el('core-temp-effect').innerHTML = formatPercent(tmp.core_temp_eff.sub(1))
+        setText('core-temperature', format(getCoreTemperature())+"°K")
+        setText('core-temp-effect', formatPercent(tmp.core_temp_eff.sub(1)))
     }
 }
 

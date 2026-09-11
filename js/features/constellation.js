@@ -170,8 +170,8 @@ function setupConstellationHTML() {
 function updateConstellationHTML() {
     let exp = CONSTELLATION.exp, base = CONSTELLATION.base, req = CONSTELLATION.require, bht = player.singularity.bh_tier, d = tmp.ss_difficulty
 
-    el('constellation-base').innerHTML = `[log(log(${CURRENCIES.fish.costName})) × log(${CURRENCIES.remnants.costName}) × log(${CURRENCIES["dark-matter"].costName})]<sup>${format(exp,3)}</sup> = <h3>${format(base)}</h3>`
-    el('cp-text').innerHTML = format(base) + " / " + format(req)
+    setHTML('constellation-base', `[log(log(${CURRENCIES.fish.costName})) × log(${CURRENCIES.remnants.costName}) × log(${CURRENCIES["dark-matter"].costName})]<sup>${format(exp,3)}</sup> = <h3>${format(base)}</h3>`)
+    setText('cp-text', format(base) + " / " + format(req))
     el('cp-bar').style.width = (req.gte(1e100) ? base.max(1).log10().div(req.log10()) : base.div(req)).max(0).min(1) * 100 + "%"
 
     el('bh-tier').textContent = format(player.singularity.bh_tier,0)
@@ -188,7 +188,7 @@ function updateConstellationHTML() {
             let curr = CURRENCIES[b.name]
             el(`constellation-boost-${i}-amount`).textContent = format(curr.amount)
             el(`constellation-boost-${i}-gain`).textContent = formatGain(curr.amount,tmp.currency_gain[b.name])
-            el(`constellation-boost-${i}-effect`).innerHTML = text[i][d?2:1](toColoredText(b.effDesc(tmp.constellation_boosts[i],d),'lime'))
+            setHTML(`constellation-boost-${i}-effect`, text[i][d?2:1](toColoredText(b.effDesc(tmp.constellation_boosts[i],d),'lime')))
         }
     }
 }

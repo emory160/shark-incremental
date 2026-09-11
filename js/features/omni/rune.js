@@ -237,11 +237,11 @@ const RUNE_SACRIFICE = {
         el('rune-sacrifice-btn').style.display = el_display(s !== undefined)
 
         if (s) {
-            el('rune-sacrifice-tier').innerHTML = t[0];
-            el('rune-sacrifice-res').innerHTML = t[1].map(x => `<li>${x}</li>`).join("");
-            el('rune-sacrifice-goal').innerHTML = `<b>${texts[1]}:</b> ${format(s[0])} ${CURRENCIES[s[1]].costName}`;
-            el('rune-sacrifice-reward').innerHTML = `<b>${texts[2]}:</b> ${t[2]}`;
-            el('rune-sacrifice-status').innerHTML = lang_text('rune-sacrifice-state')[player.omni.rune_current_sacrifice >= 0 ? 1+(CURRENCIES[s[1]].amount.gte(s[0])) : 0]
+            setHTML('rune-sacrifice-tier', t[0]);
+            setHTML('rune-sacrifice-res', t[1].map(x => `<li>${x}</li>`).join(""));
+            setHTML('rune-sacrifice-goal', `<b>${texts[1]}:</b> ${format(s[0])} ${CURRENCIES[s[1]].costName}`);
+            setHTML('rune-sacrifice-reward', `<b>${texts[2]}:</b> ${t[2]}`);
+            setHTML('rune-sacrifice-status', lang_text('rune-sacrifice-state')[player.omni.rune_current_sacrifice >= 0 ? 1+(CURRENCIES[s[1]].amount.gte(s[0])) : 0])
         }
     },
 
@@ -257,8 +257,8 @@ function updateRuneHTML() {
         el(`rune-slot-${x}`).className = el_classes({'rune-div': true, 'empty': !rc5 && D.amount.lte(0)})
 
         if (rc5 || D.amount.gt(0)) {
-            el(`rune-slot-${x}-amount`).innerHTML = toColoredText(rc5 ? "???" : formatMult(D.amount,0));
-            el(`rune-slot-${x}-strength`).innerHTML = toColoredText(rc5 ? "???" : formatPercent(tmp.omni.rune_strength[x],0));
+            setHTML(`rune-slot-${x}-amount`, toColoredText(rc5 ? "???" : formatMult(D.amount,0)));
+            setHTML(`rune-slot-${x}-strength`, toColoredText(rc5 ? "???" : formatPercent(tmp.omni.rune_strength[x],0)));
 
             el(`rune-slot-${x}-img`).setAttribute("src",`textures/runes/${rc5 ? RUNE_KEYS[Math.floor(Math.random() * RUNE_KEYS.length)] : D.id}.png`)
         }
@@ -275,10 +275,10 @@ function updateRuneHTML() {
 
         if (unl) {
             el(`rune-effect-${x}-amount`).textContent = formatMult(T.amount)
-            el(`rune-effect-${x}-desc`).innerHTML = L[2](toColoredText(R.effDesc(T.effect),'lime'))
+            setHTML(`rune-effect-${x}-desc`, L[2](toColoredText(R.effDesc(T.effect),'lime')))
         }
 
-        el(`rune-item-${x}-cost`).innerHTML = RUNE_KEYS.indexOf(x) < player.omni.rune_sacrificed ? toColoredText(lang_text('rune-sacrificed'),'red') : toColoredText(format(R.cost,0) + " " + lang_text('short-rune-essence'),RUNE_ESSENCE.amount.gte(R.cost) ? 'lime' : 'red')
+        setHTML(`rune-item-${x}-cost`, RUNE_KEYS.indexOf(x) < player.omni.rune_sacrificed ? toColoredText(lang_text('rune-sacrificed'),'red') : toColoredText(format(R.cost,0) + " " + lang_text('short-rune-essence'),RUNE_ESSENCE.amount.gte(R.cost) ? 'lime' : 'red'))
         el(`rune-item-${x}-choose`).style.display = el_display(x === picked_rune);
     }
 
@@ -291,14 +291,14 @@ function updateRuneHTML() {
                 const D = player.omni.rune_slots[i], R = RUNES[D.id], T = texts[0][D.id];
                 el(`rune-hover-name`).textContent = T[0];
                 el(`rune-hover-img`).setAttribute('src',`textures/runes/${D.id}.png`);
-                el(`rune-hover-desc`).innerHTML = D.id === 'uruz' ? T[2](toColoredText(R.effDesc(R.effect(D.amount.mul(tmp.omni.rune_strength[i]))),'lime')) : T[1]
+                setHTML(`rune-hover-desc`, D.id === 'uruz' ? T[2](toColoredText(R.effDesc(R.effect(D.amount.mul(tmp.omni.rune_strength[i]))),'lime')) : T[1])
                 break;
             }
             case 'i': {
                 const T = texts[0][i]
                 el(`rune-hover-name`).textContent = T[0]
                 el(`rune-hover-img`).setAttribute('src',`textures/runes/${i}.png`);
-                el(`rune-hover-desc`).innerHTML = T[1]
+                setHTML(`rune-hover-desc`, T[1])
                 break;
             }
         }
@@ -307,11 +307,11 @@ function updateRuneHTML() {
     for (let i = 0; i < 4; i++) {
         const e = el('rune-upgrade-'+i), x = RUNE_UPGS[i], l = player.omni.rune_upgrades[i], cost = x.cost(l), curr = CURRENCIES[x.currency];
 
-        e.innerHTML = `${texts[1][i](toColoredText(x.effDesc(tmp.omni.rune_upgrades[i]),'lime'))}<hr class='sub-line'>${texts[2]}: ${format(cost,0)} ${curr.costName}`;
+        setHTML('rune-upgrade-'+i, `${texts[1][i](toColoredText(x.effDesc(tmp.omni.rune_upgrades[i]),'lime'))}<hr class='sub-line'>${texts[2]}: ${format(cost,0)} ${curr.costName}`);
         e.className = el_classes({locked: curr.amount.lt(cost)})
     }
 
-    el("rune-erase-mode").innerHTML = lang_text("rune-erase-mode", picked_rune === 'erase');
+    setHTML("rune-erase-mode", lang_text("rune-erase-mode", picked_rune === 'erase'));
 }
 
 function setupRuneHTML() {

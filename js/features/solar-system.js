@@ -146,7 +146,7 @@ function updateSolarSystemHTML() {
         let cost = ROCKET_PARTS.costs[i], res = cost[0](), e = el('rocket-part-btn-' + i), r = player.solar_system.rocket_parts[i], c = cost[2](r),
         b = res.gte(c) ? cost[3](res).sub(r).max(0) : 0
 
-        e.innerHTML = `${lang_text('build-rocket-part',("+"+format(b,0)).bold())}<br>(${text[0]}: ${format(cost[2](r.add(b)))} ${lang_text(cost[1])})`
+        setHTML('rocket-part-btn-' + i, `${lang_text('build-rocket-part',("+"+format(b,0)).bold())}<br>(${text[0]}: ${format(cost[2](r.add(b)))} ${lang_text(cost[1])})`)
         e.className = el_classes({'small-upg':true,'locked':res.lt(c)})
     }
 
@@ -156,7 +156,7 @@ function updateSolarSystemHTML() {
     for (let id of SS_KEYS) {
         let ss = SOLAR_SYSTEM[id], e = el('ss-' + id), rp_req = ss.rp_req, comp = player.solar_system.completion[id], req = comp || total_rp.gte(rp_req)
 
-        e.innerHTML = `<img src="textures/solar-system/${req ? id : "hidden"}.png"><br>${req ? ss_text[id][0] : format(rp_req,0,6).bold()+" "+text[1]}`
+        setHTML('ss-' + id, `<img src="textures/solar-system/${req ? id : "hidden"}.png"><br>${req ? ss_text[id][0] : format(rp_req,0,6).bold()+" "+text[1]}`)
         e.className = el_classes({'locked':!comp&&!req,'bought':comp})
         e.style.filter = id === player.solar_system.active?"brightness(1.5)":""
     }
@@ -168,10 +168,10 @@ function updateSolarSystemHTML() {
     if (ss_choose !== '') {
         let s = SOLAR_SYSTEM[ss_choose], l = ss_text[ss_choose]
 
-        el('ss-title').innerHTML = `<h3>${l[0]}</h3> [${lang_text('difficulty')}: ${s.difficulty}]`
-        el('ss-desc').innerHTML = l[1]
-        el('ss-reward').innerHTML = player.solar_system.completion[ss_choose] ? l[2] : lang_text('solar-system-lock-reward')
-        el('ss-goal').innerHTML = lang_text('solar-system-goal',format(s.goal,0))
+        setHTML('ss-title', `<h3>${l[0]}</h3> [${lang_text('difficulty')}: ${s.difficulty}]`)
+        setHTML('ss-desc', l[1])
+        setHTML('ss-reward', player.solar_system.completion[ss_choose] ? l[2] : lang_text('solar-system-lock-reward'))
+        setHTML('ss-goal', lang_text('solar-system-goal',format(s.goal,0)))
     }
 }
 
@@ -555,7 +555,7 @@ function updateSpaceBaseHTML() {
     el('experiment-tier').textContent = format(player.solar_system.experiment,0)
     if (d >= 6) {
         let req = EXPERIMENT_TIER.require
-        el('experiment-button').innerHTML = `${lang_text('experiment-reset')}<br>${lang_text('require')}: ${format(req)} ${CURRENCIES.observ.costName}`
+        setHTML('experiment-button', `${lang_text('experiment-reset')}<br>${lang_text('require')}: ${format(req)} ${CURRENCIES.observ.costName}`)
         el('experiment-button').className = el_classes({'huge-btn': true, locked: player.solar_system.observ.lt(req)})
 
         let e = player.solar_system.experiment, h = []
@@ -563,7 +563,7 @@ function updateSpaceBaseHTML() {
             let b = EXPERIMENT_TIER.boosts[i]
             if (e.gte(b[0])) h.push(texts[1][i](toColoredText(b[2](tmp.experiment_boosts[i]),'lime')));
         }
-        el('experiment-boosts').innerHTML = h.join("<br>")
+        setHTML('experiment-boosts', h.join("<br>"))
     }
 
     for (let gid in SPACEBASE_UPGS_GROUPS) {
@@ -578,7 +578,7 @@ function updateSpaceBaseHTML() {
                 let lvl = player.solar_system.sb_upgs[id]
     
                 el(e_id+'level').textContent = format(lvl,0)
-                el(e_id+'desc').innerHTML = texts[0][id][1](toColoredText(u.effDesc(tmp.sb_upg_effects[id]),'lime'))
+                setHTML(e_id+'desc', texts[0][id][1](toColoredText(u.effDesc(tmp.sb_upg_effects[id]),'lime')))
     
                 let cost = u.cost(lvl)
     

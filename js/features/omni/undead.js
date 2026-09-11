@@ -198,12 +198,12 @@ function setupUndeadHTML() {
 }
 
 function updateUndeadHTML() {
-    el('undead-essence-amount').innerHTML = format(CURRENCIES.undead.amount,0)
+    setText('undead-essence-amount', format(CURRENCIES.undead.amount,0))
 
     let chance = UNDEAD.chance
 
-    el('undead-essence-chance').innerHTML = formatPercent(chance)
-    el('undead-essence-gain').innerHTML = chance.gte(1) ? formatGain(CURRENCIES.undead.amount, tmp.currency_gain.undead.mul(chance).mul(hasResearch('u3') ? tmp.speed : 1)) : `(<b>+${tmp.currency_gain.undead.format(0)}</b> / ${formatTime(chance.pow(-1),1)})`
+    setText('undead-essence-chance', formatPercent(chance))
+    setHTML('undead-essence-gain', chance.gte(1) ? formatGain(CURRENCIES.undead.amount, tmp.currency_gain.undead.mul(chance).mul(hasResearch('u3') ? tmp.speed : 1)) : `(<b>+${tmp.currency_gain.undead.format(0)}</b> / ${formatTime(chance.pow(-1),1)})`)
 
     let descs = lang_text('undead-upgrades')
 
@@ -218,10 +218,10 @@ function updateUndeadHTML() {
 
         let level = player.omni.undead_upgs[i], cost = U.cost(level)
 
-        el(`undead-upg-${i}-level`).innerHTML = player.omni.undead_upgs[i].format(0)
-        el(`undead-upg-${i}-desc`).innerHTML = descs[i][1](toColoredText(U.effDesc(tmp.omni.undead_upgs[i]), 'lime'))
+        setText(`undead-upg-${i}-level`, player.omni.undead_upgs[i].format(0))
+        setHTML(`undead-upg-${i}-desc`, descs[i][1](toColoredText(U.effDesc(tmp.omni.undead_upgs[i]), 'lime')))
 
-        el(`undead-upg-${i}-cost`).innerHTML = format(cost,0)
+        setText(`undead-upg-${i}-cost`, format(cost,0))
         el(`undead-upg-${i}-button`).className = el_classes({'small-upg': true, locked: CURRENCIES[U.res].amount.lt(cost)})
     }
 }

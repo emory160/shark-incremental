@@ -599,19 +599,19 @@ function updateSharkHTML() {
     if (player.omni.active) {
         const G = OMNI.goals[player.omni.tier] ?? [EINF, 'anti-fish'], T = lang_text('omni-other-requirements')
 
-        el('omni-require').innerHTML = G === 'other' ? T[player.omni.tier] ?? "???" : format(G[0],0) + " " + CURRENCIES[G[1]].costName;
+        setText('omni-require', G === 'other' ? T[player.omni.tier] ?? "???" : format(G[0],0) + " " + CURRENCIES[G[1]].costName)
         el('omni-shark-button').className = el_classes({locked: G === 'other' || CURRENCIES[G[1]].amount.lt(G[0]), omni: true})
     } else {
         el('shark-level').textContent = player.shark_level.format(0)
         el('shark-tier').textContent = player.shark_rank.format(0)
-        if (el('shark-next-rank')) el('shark-next-rank').innerHTML = player.feature >= 11 ? `(${lang_text('next-at')} ELO ${SHARK.rank.require.format(0).bold()})` : ""
+        if (el('shark-next-rank')) setHTML('shark-next-rank', player.feature >= 11 ? `(${lang_text('next-at')} ELO ${SHARK.rank.require.format(0).bold()})` : "")
 
         let cost = SHARK.cost()
 
-        el('shark-button').innerHTML = lang_text('upgrade-shark',cost)
+        setHTML('shark-button', lang_text('upgrade-shark',cost))
         el('shark-button').className = el_classes({locked: player.fish.lt(cost)})
 
-        el('shark-bonus').innerHTML = Object.keys(SHARK.bonuses).filter(x=>SHARK.bonuses[x][0]()).map(x=>lang_text("shark-bonus-"+x,getSharkBonus(x))).join(", ")
+        setHTML('shark-bonus', Object.keys(SHARK.bonuses).filter(x=>SHARK.bonuses[x][0]()).map(x=>lang_text("shark-bonus-"+x,getSharkBonus(x))).join(", "))
     }
 }
 
@@ -647,27 +647,27 @@ function updateSharkUpgradesHTML() {
 }
 
 function updateSharkRankHTML() {
-    el("shark-elo").innerHTML = tmp.shark_elo.format(0)
-    el("shark-elo-calc").innerHTML = SHARK.ELO_calculation
+    setText("shark-elo", tmp.shark_elo.format(0))
+    setHTML("shark-elo-calc", SHARK.ELO_calculation)
 
-    el("shark-rank").innerHTML = player.shark_rank.format(0)
-    el("shark-rank-req").innerHTML = SHARK.rank.require.format(0)
+    setText("shark-rank", player.shark_rank.format(0))
+    setText("shark-rank-req", SHARK.rank.require.format(0))
 
     var rank_text = lang_text("shark-rank-bonuses")
-    el('shark-rank-bonus').innerHTML = Object.keys(SHARK.rank.bonuses).filter(x=>SHARK.rank.bonuses[x][0]()).map(x=>rank_text[x](getSharkRankBonus(x))).join(", ")
+    setHTML('shark-rank-bonus', Object.keys(SHARK.rank.bonuses).filter(x=>SHARK.rank.bonuses[x][0]()).map(x=>rank_text[x](getSharkRankBonus(x))).join(", "))
 
-    el("shark-overpopulation").innerHTML = tmp.shark_op.gt(1) ? lang_text("shark-overpopulation",tmp.shark_op,tmp.shark_op_start) : ""
+    setHTML("shark-overpopulation", tmp.shark_op.gt(1) ? lang_text("shark-overpopulation",tmp.shark_op,tmp.shark_op_start) : "")
 }
 
 function updateSharkTierHTML() {
-    el("shark-iq").innerHTML = tmp.shark_iq.format(0)
-    el("shark-iq-calc").innerHTML = SHARK.tier.ELO_calculation
+    setText("shark-iq", tmp.shark_iq.format(0))
+    setHTML("shark-iq-calc", SHARK.tier.ELO_calculation)
 
-    el("shark-tier2").innerHTML = player.shark_tier.format(0)
-    el("shark-tier-req").innerHTML = SHARK.tier.require.format(0)
+    setText("shark-tier2", player.shark_tier.format(0))
+    setText("shark-tier-req", SHARK.tier.require.format(0))
 
     var rank_text = lang_text("shark-tier-bonuses")
-    el('shark-tier-bonus').innerHTML = Object.keys(SHARK.tier.bonuses).filter(x=>SHARK.tier.bonuses[x][0]()).map(x=>rank_text[x](SHARK.tier.bonuses[x][3](getSharkTierBonus(x)))).join(", ")
+    setHTML('shark-tier-bonus', Object.keys(SHARK.tier.bonuses).filter(x=>SHARK.tier.bonuses[x][0]()).map(x=>rank_text[x](SHARK.tier.bonuses[x][3](getSharkTierBonus(x)))).join(", "))
 }
 
 function upgradeShark(auto) {
